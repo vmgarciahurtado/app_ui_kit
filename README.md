@@ -1,64 +1,148 @@
-# Ui Kit System Design
+# app_ui_kit
 
-A Flutter design system package with configurable theming, and UI components. Built to give consuming apps full control over colors and typography while keeping UI consistency.
+Sistema de diseño reutilizable para Flutter, organizado con **Atomic Design**.
+El consumidor controla la identidad visual (colores de marca, fuentes y colores
+de estado); el sistema aporta la consistencia (tokens, theming y componentes).
 
-## Installation
+**Showcase en vivo:** https://uikit.vmgarcia.online
 
-Add the package to your `pubspec.yaml`:
+## Video
+
+Recorrido por los componentes y el showcase:
+[Ver en YouTube](https://youtu.be/XXXXXXXX)
+
+## Arquitectura
+
+```
+lib/src/
+├── tokens/        # Valores crudos: UiSpacing, UiRadius, UiBreakpoints
+├── theme/         # Foundation: UiKitTheme, UiStatusColors, extensión de BuildContext
+├── atoms/         # UiButton, UiTextField, UiChip, UiLoader, UiAvatar
+├── molecules/     # UiCard, UiBanner, UiEmptyState
+└── organisms/     # UiConfirmDialog
+```
+
+Reglas del sistema:
+
+- Los **tokens** son constantes sin semántica de componente (no existe `buttonColor`).
+- El **theme** mapea tokens + marca del consumidor a un `ThemeData`. Es la única
+  fuente de colores y tipografía.
+- Los **componentes** leen todo del theme vía `context.colorScheme`,
+  `context.textTheme` y `context.statusColors`. Nunca colores hardcodeados.
+
+## Instalación
 
 ```yaml
 dependencies:
-  app_ui_kit: ^0.0.1
+  app_ui_kit:
+    git: https://github.com/vmgarciahurtado/app_ui_kit
 ```
 
-Then run:
+## Theming
 
-```bash
-flutter pub get
-```
-
-## Setup
-
-Configure the theme in your app's `main.dart` using `UiKitThemeConfig` and `UiKitTheme`:
+Configura el tema una sola vez en tu `MaterialApp`:
 
 ```dart
 import 'package:app_ui_kit/app_ui_kit.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    const config = UiKitThemeConfig(
-      primaryColor: Colors.blue,
-      secondaryColor: Colors.indigo,
-      primaryFont: 'YourPrimaryFont',
-      secondaryFont: 'YourSecondaryFont',
-    );
-
-    return MaterialApp(
-      theme: UiKitTheme.light(config),
-      darkTheme: UiKitTheme.dark(config),
-      home: const MyHomePage(),
-    );
-  }
-}
+MaterialApp(
+  theme: UiKitTheme.light(
+    primary: const Color(0xFF4F46E5),
+    secondary: const Color(0xFF0D9488),      // opcional
+    fontFamily: 'Inter',                     // opcional, fuente base
+    headingFontFamily: 'Sora',               // opcional, display/headline/titleLarge
+  ),
+  darkTheme: UiKitTheme.dark(primary: const Color(0xFF4F46E5)),
+);
 ```
 
-> Fonts must be registered in your app's `pubspec.yaml`. The package is font-source agnostic — use local assets or any font package like `google_fonts`.
+> Las fuentes se registran en el `pubspec.yaml` de tu app. El paquete es
+> agnóstico a la fuente: usa assets locales o `google_fonts`.
 
-### Font roles
+### Colores de estado
 
-| Text roles | Font used |
-|---|---|
-| `display*`, `headline*` | `primaryFont` |
-| `title*`, `body*` | `secondaryFont` |
-| `label*` |`secondaryFont` |
+`ColorScheme` de Material solo trae `error`. El sistema agrega `success`,
+`warning` e `info` como `ThemeExtension`, con defaults sobreescribibles:
 
-## Components
+```dart
+UiKitTheme.light(
+  primary: myBrand,
+  statusColors: const UiStatusColors(
+    success: Color(0xFF15803D),
+    warning: Color(0xFFB45309),
+    info: Color(0xFF1D4ED8),
+  ),
+);
+```
 
-### UiKitTextText
+### Acceso desde el contexto
+
+```dart
+context.colorScheme.primary
+context.textTheme.titleMedium
+context.statusColors.success
+```
+
+## Componentes
+
+| Componente | Nivel | Variantes / capacidades |
+|---|---|---|
+| `UiButton` | Átomo | `primary`, `secondary`, `outline`, `ghost`, `danger` · ícono, loading, expanded |
+| `UiTextField` | Átomo | label, hint, helper, error, prefijo, contraseña con toggle, multilínea |
+| `UiChip` | Átomo | estático, seleccionable, eliminable, con ícono |
+| `UiLoader` | Átomo | tamaños `sm`/`md`/`lg`, etiqueta opcional |
+| `UiAvatar` | Átomo | imagen o iniciales, tamaños `sm`/`md`/`lg` |
+| `UiCard` | Molécula | padding consistente, `onTap` con ripple |
+| `UiBanner` | Molécula | `info`, `success`, `warning`, `error` · título y cierre opcionales |
+| `UiEmptyState` | Molécula | ícono, título, mensaje y acción opcionales |
+| `UiConfirmDialog` | Organismo | `show()` resuelve `true`/`false`/`null`, modo destructivo |
+
+Ejemplo:
+
+```dart
+UiButton(
+  label: 'Guardar',
+  icon: Icons.check,
+  loading: saving,
+  onPressed: _save,
+);
+
+final confirmed = await UiConfirmDialog.show(
+  context,
+  title: '¿Eliminar elemento?',
+  message: 'Esta acción no se puede deshacer.',
+  confirmLabel: 'Eliminar',
+  danger: true,
+);
+```
+
+## Showcase
+
+La app de ejemplo en [example/](example/) documenta visualmente cada componente
+con sus variantes, navegando por categorías (tokens, átomos, moléculas,
+organismos) con `MenuAnchor`, y con toggle de tema claro/oscuro.
+
+```bash
+cd example
+flutter run -d chrome
+```
+
+## Despliegue del showcase
+
+El [Dockerfile](Dockerfile) compila el showcase en una etapa con el SDK de
+Flutter y lo sirve con nginx. En Coolify: crear una app desde este repo con
+build pack *Dockerfile*, asignar el dominio `uikit.vmgarcia.online` y Coolify
+se encarga del HTTPS y del redeploy en cada push.
+
+```bash
+# Probar localmente
+docker build -t app_ui_kit_showcase .
+docker run -p 8080:80 app_ui_kit_showcase
+```
+
+## Tests
+
+```bash
+flutter test            # paquete
+cd example && flutter test   # showcase
+```

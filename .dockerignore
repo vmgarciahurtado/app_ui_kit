@@ -1,0 +1,9 @@
+.git
+.idea
+.dart_tool
+build
+example/build
+example/.dart_tool
+example/android
+example/ios
+**/*.iml
