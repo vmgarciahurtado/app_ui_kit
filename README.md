@@ -9,7 +9,7 @@ de estado); el sistema aporta la consistencia (tokens, theming y componentes).
 ## Video
 
 Recorrido por los componentes y el showcase:
-[Ver en YouTube](https://youtu.be/XXXXXXXX)
+[Ver en YouTube](https://youtu.be/RwVyz5fTxxY)
 
 ## Arquitectura
 
