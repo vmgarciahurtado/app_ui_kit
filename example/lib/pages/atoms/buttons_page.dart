@@ -24,11 +24,11 @@ class _ButtonsPageState extends State<ButtonsPage> {
   @override
   Widget build(BuildContext context) {
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Variantes',
           description: 'Cinco niveles de énfasis con una sola API.',
-          children: [
+          children: <Widget>[
             UiButton(label: 'Primary', onPressed: () {}),
             UiButton(label: 'Secondary', variant: .secondary, onPressed: () {}),
             UiButton(label: 'Outline', variant: .outline, onPressed: () {}),
@@ -38,7 +38,7 @@ class _ButtonsPageState extends State<ButtonsPage> {
         ),
         ShowcaseSection(
           title: 'Con ícono',
-          children: [
+          children: <Widget>[
             UiButton(label: 'Guardar', icon: Icons.check, onPressed: () {}),
             UiButton(
               label: 'Compartir',
@@ -57,9 +57,12 @@ class _ButtonsPageState extends State<ButtonsPage> {
         ShowcaseSection(
           title: 'Estados',
           description: 'Toca "Cargar" para ver el estado de carga real.',
-          children: [
-            UiButton(label: 'Cargar', loading: _loading,
-                onPressed: _simulateLoad),
+          children: <Widget>[
+            UiButton(
+              label: 'Cargar',
+              loading: _loading,
+              onPressed: _simulateLoad,
+            ),
             const UiButton(label: 'Deshabilitado'),
             const UiButton(label: 'Deshabilitado', variant: .outline),
           ],
@@ -67,7 +70,7 @@ class _ButtonsPageState extends State<ButtonsPage> {
         ShowcaseSection(
           title: 'Expandido',
           description: 'expanded: true ocupa todo el ancho disponible.',
-          children: [
+          children: <Widget>[
             UiButton(label: 'Continuar', expanded: true, onPressed: () {}),
           ],
         ),

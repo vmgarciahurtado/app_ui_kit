@@ -19,14 +19,14 @@ class UiStatusColors extends ThemeExtension<UiStatusColors> {
   final Color info;
 
   /// Valores por defecto para tema claro.
-  static const light = UiStatusColors(
+  static const UiStatusColors light = UiStatusColors(
     success: Color(0xFF16A34A),
     warning: Color(0xFFD97706),
     info: Color(0xFF2563EB),
   );
 
   /// Valores por defecto para tema oscuro.
-  static const dark = UiStatusColors(
+  static const UiStatusColors dark = UiStatusColors(
     success: Color(0xFF4ADE80),
     warning: Color(0xFFFBBF24),
     info: Color(0xFF60A5FA),

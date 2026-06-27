@@ -37,8 +37,8 @@ enum UiButtonVariant {
 /// ```
 class UiButton extends StatelessWidget {
   const UiButton({
-    super.key,
     required this.label,
+    super.key,
     this.onPressed,
     this.variant = .primary,
     this.icon,
@@ -61,23 +61,25 @@ class UiButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveOnPressed = loading ? null : onPressed;
-    final child = _content();
+    final VoidCallback? effectiveOnPressed = loading ? null : onPressed;
+    final Widget child = _content();
 
-    final button = switch (variant) {
+    final ButtonStyleButton button = switch (variant) {
       .primary => FilledButton(onPressed: effectiveOnPressed, child: child),
-      .secondary =>
-        FilledButton.tonal(onPressed: effectiveOnPressed, child: child),
+      .secondary => FilledButton.tonal(
+        onPressed: effectiveOnPressed,
+        child: child,
+      ),
       .outline => OutlinedButton(onPressed: effectiveOnPressed, child: child),
       .ghost => TextButton(onPressed: effectiveOnPressed, child: child),
       .danger => FilledButton(
-          onPressed: effectiveOnPressed,
-          style: FilledButton.styleFrom(
-            backgroundColor: context.colorScheme.error,
-            foregroundColor: context.colorScheme.onError,
-          ),
-          child: child,
+        onPressed: effectiveOnPressed,
+        style: FilledButton.styleFrom(
+          backgroundColor: context.colorScheme.error,
+          foregroundColor: context.colorScheme.onError,
         ),
+        child: child,
+      ),
     };
 
     return expanded ? SizedBox(width: double.infinity, child: button) : button;
@@ -93,7 +95,7 @@ class UiButton extends StatelessWidget {
     if (icon == null) return Text(label);
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         Icon(icon, size: 18),
         const SizedBox(width: UiSpacing.sm),
         Text(label),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// Lista scrolleable con el ancho máximo y padding estándar del showcase.
 class ShowcaseList extends StatelessWidget {
-  const ShowcaseList({super.key, required this.children});
+  const ShowcaseList({required this.children, super.key});
 
   final List<Widget> children;
 
@@ -16,7 +16,7 @@ class ShowcaseList extends StatelessWidget {
           padding: const EdgeInsets.all(UiSpacing.lg),
           itemCount: children.length,
           separatorBuilder: (_, _) => const SizedBox(height: UiSpacing.xl),
-          itemBuilder: (_, index) => children[index],
+          itemBuilder: (_, int index) => children[index],
         ),
       ),
     );

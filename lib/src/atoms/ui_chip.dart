@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 /// ```
 class UiChip extends StatelessWidget {
   const UiChip({
-    super.key,
     required this.label,
+    super.key,
     this.icon,
     this.selected = false,
     this.onSelected,

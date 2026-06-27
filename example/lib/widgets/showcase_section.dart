@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 /// del componente dispuestas en un [Wrap].
 class ShowcaseSection extends StatelessWidget {
   const ShowcaseSection({
-    super.key,
     required this.title,
-    this.description,
     required this.children,
+    super.key,
+    this.description,
   });
 
   final String title;
@@ -19,9 +19,9 @@ class ShowcaseSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: .start,
-      children: [
+      children: <Widget>[
         Text(title, style: context.textTheme.titleMedium),
-        if (description != null) ...[
+        if (description != null) ...<Widget>[
           const SizedBox(height: UiSpacing.xs),
           Text(
             description!,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// Página de bienvenida del showcase.
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key, required this.onExplore});
+  const WelcomePage({required this.onExplore, super.key});
 
   /// Abre el menú de componentes.
   final VoidCallback onExplore;
@@ -17,7 +17,7 @@ class WelcomePage extends StatelessWidget {
           padding: const EdgeInsets.all(UiSpacing.lg),
           child: Column(
             mainAxisAlignment: .center,
-            children: [
+            children: <Widget>[
               Icon(
                 Icons.auto_awesome_mosaic_outlined,
                 size: 64,

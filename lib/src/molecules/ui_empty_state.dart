@@ -15,8 +15,8 @@ import '../tokens/ui_spacing.dart';
 /// ```
 class UiEmptyState extends StatelessWidget {
   const UiEmptyState({
-    super.key,
     required this.title,
+    super.key,
     this.icon = Icons.inbox_outlined,
     this.message,
     this.action,
@@ -36,7 +36,7 @@ class UiEmptyState extends StatelessWidget {
         padding: const EdgeInsets.all(UiSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Icon(
               icon,
               size: 56,
@@ -48,7 +48,7 @@ class UiEmptyState extends StatelessWidget {
               style: context.textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
-            if (message != null) ...[
+            if (message != null) ...<Widget>[
               const SizedBox(height: UiSpacing.sm),
               Text(
                 message!,
@@ -58,7 +58,7 @@ class UiEmptyState extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ],
-            if (action != null) ...[
+            if (action != null) ...<Widget>[
               const SizedBox(height: UiSpacing.lg),
               action!,
             ],

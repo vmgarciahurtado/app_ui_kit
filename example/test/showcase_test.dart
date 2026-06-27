@@ -2,8 +2,9 @@ import 'package:example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('navega a una página de componentes desde el menú',
-      (tester) async {
+  testWidgets('navega a una página de componentes desde el menú', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const ShowcaseApp());
 
     expect(find.text('Explorar componentes'), findsOneWidget);

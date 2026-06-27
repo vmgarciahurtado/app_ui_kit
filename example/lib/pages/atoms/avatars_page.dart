@@ -11,11 +11,11 @@ class AvatarsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Tamaños',
           description: 'Sin imagen muestra las iniciales del nombre.',
-          children: [
+          children: <Widget>[
             UiAvatar(name: 'Victor García', size: .sm),
             UiAvatar(name: 'Victor García'),
             UiAvatar(name: 'Victor García', size: .lg),
@@ -23,7 +23,7 @@ class AvatarsPage extends StatelessWidget {
         ),
         ShowcaseSection(
           title: 'Una sola palabra',
-          children: [
+          children: <Widget>[
             UiAvatar(name: 'Flutter', size: .lg),
           ],
         ),

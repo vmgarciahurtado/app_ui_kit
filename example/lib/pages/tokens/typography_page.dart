@@ -10,8 +10,8 @@ class TypographyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = context.textTheme;
-    final styles = <(String, TextStyle?)>[
+    final TextTheme text = context.textTheme;
+    final List<(String, TextStyle?)> styles = <(String, TextStyle?)>[
       ('displayLarge', text.displayLarge),
       ('headlineLarge', text.headlineLarge),
       ('headlineMedium', text.headlineMedium),
@@ -25,20 +25,20 @@ class TypographyPage extends StatelessWidget {
     ];
 
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Escala tipográfica',
           description:
               'Tamaños de la escala Material. La fuente base y la de titulares '
               '(display, headline y titleLarge) se configuran en UiKitTheme.',
-          children: [
-            for (final (name, style) in styles)
+          children: <Widget>[
+            for (final (String name, TextStyle? style) in styles)
               SizedBox(
                 width: double.infinity,
                 child: Row(
                   crossAxisAlignment: .baseline,
                   textBaseline: .alphabetic,
-                  children: [
+                  children: <Widget>[
                     SizedBox(
                       width: 130,
                       child: Text(

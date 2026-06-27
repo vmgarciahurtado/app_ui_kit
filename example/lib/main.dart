@@ -27,8 +27,8 @@ class _ShowcaseAppState extends State<ShowcaseApp> {
 
   @override
   Widget build(BuildContext context) {
-    const primary = Color(0xFF4F46E5);
-    const secondary = Color(0xFF0D9488);
+    const Color primary = Color(0xFF4F46E5);
+    const Color secondary = Color(0xFF0D9488);
 
     return MaterialApp(
       title: 'app_ui_kit',

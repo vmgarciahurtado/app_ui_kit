@@ -15,8 +15,8 @@ import '../tokens/ui_spacing.dart';
 /// ```
 class UiCard extends StatelessWidget {
   const UiCard({
-    super.key,
     required this.child,
+    super.key,
     this.onTap,
     this.padding = const EdgeInsets.all(UiSpacing.md),
   });
@@ -29,12 +29,10 @@ class UiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Padding(padding: padding, child: child);
+    final Padding content = Padding(padding: padding, child: child);
 
     return Card(
-      child: onTap != null
-          ? InkWell(onTap: onTap, child: content)
-          : content,
+      child: onTap != null ? InkWell(onTap: onTap, child: content) : content,
     );
   }
 }

@@ -24,8 +24,8 @@ enum UiBannerVariant { info, success, warning, error }
 /// ```
 class UiBanner extends StatelessWidget {
   const UiBanner({
-    super.key,
     required this.message,
+    super.key,
     this.variant = .info,
     this.title,
     this.onClose,
@@ -42,13 +42,13 @@ class UiBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = switch (variant) {
+    final Color color = switch (variant) {
       .info => context.statusColors.info,
       .success => context.statusColors.success,
       .warning => context.statusColors.warning,
       .error => context.colorScheme.error,
     };
-    final icon = switch (variant) {
+    final IconData icon = switch (variant) {
       .info => Icons.info_outline,
       .success => Icons.check_circle_outline,
       .warning => Icons.warning_amber_outlined,
@@ -64,14 +64,14 @@ class UiBanner extends StatelessWidget {
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Icon(icon, color: color, size: 22),
           const SizedBox(width: UiSpacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (title != null) ...[
+              children: <Widget>[
+                if (title != null) ...<Widget>[
                   Text(
                     title!,
                     style: context.textTheme.titleMedium?.copyWith(

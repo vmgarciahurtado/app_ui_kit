@@ -11,10 +11,10 @@ class TextFieldsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Básicos',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 320,
               child: UiTextField(label: 'Nombre', hint: 'Tu nombre completo'),
@@ -33,7 +33,7 @@ class TextFieldsPage extends StatelessWidget {
         ShowcaseSection(
           title: 'Contraseña',
           description: 'Incluye toggle de visibilidad automático.',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 320,
               child: UiTextField(
@@ -46,7 +46,7 @@ class TextFieldsPage extends StatelessWidget {
         ),
         ShowcaseSection(
           title: 'Estados',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 320,
               child: UiTextField(
@@ -62,7 +62,7 @@ class TextFieldsPage extends StatelessWidget {
         ),
         ShowcaseSection(
           title: 'Multilínea',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 480,
               child: UiTextField(

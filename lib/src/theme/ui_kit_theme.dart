@@ -59,7 +59,7 @@ abstract final class UiKitTheme {
     required String? headingFontFamily,
     required UiStatusColors statusColors,
   }) {
-    var colorScheme = ColorScheme.fromSeed(
+    ColorScheme colorScheme = ColorScheme.fromSeed(
       seedColor: primary,
       brightness: brightness,
     );
@@ -67,16 +67,18 @@ abstract final class UiKitTheme {
       colorScheme = colorScheme.copyWith(secondary: secondary);
     }
 
-    final buttonShape = RoundedRectangleBorder(borderRadius: UiRadius.borderMd);
-    const buttonPadding = EdgeInsets.symmetric(
+    const RoundedRectangleBorder buttonShape = RoundedRectangleBorder(
+      borderRadius: UiRadius.borderMd,
+    );
+    const EdgeInsets buttonPadding = EdgeInsets.symmetric(
       horizontal: UiSpacing.lg,
       vertical: UiSpacing.md,
     );
 
-    final theme = ThemeData(
+    final ThemeData theme = ThemeData(
       colorScheme: colorScheme,
       fontFamily: fontFamily,
-      extensions: [statusColors],
+      extensions: <ThemeExtension<dynamic>>[statusColors],
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           shape: buttonShape,
@@ -145,14 +147,17 @@ abstract final class UiKitTheme {
       ),
       menuTheme: MenuThemeData(
         style: MenuStyle(
-          backgroundColor:
-              WidgetStatePropertyAll(colorScheme.surfaceContainer),
-          surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
-          elevation: const WidgetStatePropertyAll(6),
-          shape: const WidgetStatePropertyAll(
+          backgroundColor: WidgetStatePropertyAll<Color>(
+            colorScheme.surfaceContainer,
+          ),
+          surfaceTintColor: const WidgetStatePropertyAll<Color>(
+            Colors.transparent,
+          ),
+          elevation: const WidgetStatePropertyAll<double>(6),
+          shape: const WidgetStatePropertyAll<OutlinedBorder>(
             RoundedRectangleBorder(borderRadius: UiRadius.borderMd),
           ),
-          padding: const WidgetStatePropertyAll(
+          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.symmetric(
               vertical: UiSpacing.sm,
               horizontal: UiSpacing.xs,

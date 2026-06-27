@@ -11,10 +11,10 @@ class EmptyStatesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         const ShowcaseSection(
           title: 'Básico',
-          children: [
+          children: <Widget>[
             UiEmptyState(
               title: 'Sin mensajes',
               message: 'Cuando recibas mensajes aparecerán aquí.',
@@ -23,11 +23,12 @@ class EmptyStatesPage extends StatelessWidget {
         ),
         ShowcaseSection(
           title: 'Con acción',
-          children: [
+          children: <Widget>[
             UiEmptyState(
               icon: Icons.search_off_outlined,
               title: 'Sin resultados',
-              message: 'No encontramos nada con ese criterio. '
+              message:
+                  'No encontramos nada con ese criterio. '
                   'Intenta con otra búsqueda.',
               action: UiButton(
                 label: 'Limpiar filtros',
@@ -39,7 +40,7 @@ class EmptyStatesPage extends StatelessWidget {
         ),
         const ShowcaseSection(
           title: 'Ícono personalizado',
-          children: [
+          children: <Widget>[
             UiEmptyState(
               icon: Icons.wifi_off_outlined,
               title: 'Sin conexión',

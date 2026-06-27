@@ -18,13 +18,13 @@ class _BannersPageState extends State<BannersPage> {
   @override
   Widget build(BuildContext context) {
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         const ShowcaseSection(
           title: 'Variantes',
           description:
               'Los colores salen de UiStatusColors y del ColorScheme, '
               'así que se adaptan al tema claro/oscuro.',
-          children: [
+          children: <Widget>[
             UiBanner(message: 'Hay una nueva versión disponible.'),
             UiBanner(
               variant: .success,
@@ -42,18 +42,18 @@ class _BannersPageState extends State<BannersPage> {
         ),
         const ShowcaseSection(
           title: 'Con título',
-          children: [
+          children: <Widget>[
             UiBanner(
-              variant: .info,
               title: 'Mantenimiento programado',
-              message: 'El servicio estará en mantenimiento el sábado '
+              message:
+                  'El servicio estará en mantenimiento el sábado '
                   'de 2:00 a 4:00 a.m.',
             ),
           ],
         ),
         ShowcaseSection(
           title: 'Cerrable',
-          children: [
+          children: <Widget>[
             if (_visible)
               UiBanner(
                 variant: .success,

@@ -16,25 +16,31 @@ import 'component_category.dart';
 import 'component_entry.dart';
 
 /// Catálogo completo del showcase, organizado por Atomic Design.
-final catalog = <ComponentCategory>[
+final List<ComponentCategory> catalog = <ComponentCategory>[
   ComponentCategory(
     title: 'Tokens',
     icon: Icons.palette_outlined,
-    entries: [
+    entries: <ComponentEntry>[
       ComponentEntry(title: 'Colores', builder: (_) => const ColorsPage()),
       ComponentEntry(
-          title: 'Tipografía', builder: (_) => const TypographyPage()),
+        title: 'Tipografía',
+        builder: (_) => const TypographyPage(),
+      ),
       ComponentEntry(
-          title: 'Espaciado y radios', builder: (_) => const SpacingPage()),
+        title: 'Espaciado y radios',
+        builder: (_) => const SpacingPage(),
+      ),
     ],
   ),
   ComponentCategory(
     title: 'Átomos',
     icon: Icons.circle_outlined,
-    entries: [
+    entries: <ComponentEntry>[
       ComponentEntry(title: 'Botones', builder: (_) => const ButtonsPage()),
       ComponentEntry(
-          title: 'Campos de texto', builder: (_) => const TextFieldsPage()),
+        title: 'Campos de texto',
+        builder: (_) => const TextFieldsPage(),
+      ),
       ComponentEntry(title: 'Chips', builder: (_) => const ChipsPage()),
       ComponentEntry(title: 'Loaders', builder: (_) => const LoadersPage()),
       ComponentEntry(title: 'Avatares', builder: (_) => const AvatarsPage()),
@@ -43,17 +49,19 @@ final catalog = <ComponentCategory>[
   ComponentCategory(
     title: 'Moléculas',
     icon: Icons.hub_outlined,
-    entries: [
+    entries: <ComponentEntry>[
       ComponentEntry(title: 'Cards', builder: (_) => const CardsPage()),
       ComponentEntry(title: 'Banners', builder: (_) => const BannersPage()),
       ComponentEntry(
-          title: 'Estados vacíos', builder: (_) => const EmptyStatesPage()),
+        title: 'Estados vacíos',
+        builder: (_) => const EmptyStatesPage(),
+      ),
     ],
   ),
   ComponentCategory(
     title: 'Organismos',
     icon: Icons.widgets_outlined,
-    entries: [
+    entries: <ComponentEntry>[
       ComponentEntry(title: 'Diálogos', builder: (_) => const DialogsPage()),
     ],
   ),

@@ -24,8 +24,8 @@ enum UiAvatarSize {
 /// ```
 class UiAvatar extends StatelessWidget {
   const UiAvatar({
-    super.key,
     required this.name,
+    super.key,
     this.image,
     this.size = .md,
   });
@@ -37,11 +37,11 @@ class UiAvatar extends StatelessWidget {
 
   /// Iniciales de las dos primeras palabras del nombre.
   String get _initials {
-    final words = name.trim().split(RegExp(r'\s+'));
+    final List<String> words = name.trim().split(RegExp(r'\s+'));
     return words
-        .where((word) => word.isNotEmpty)
+        .where((String word) => word.isNotEmpty)
         .take(2)
-        .map((word) => word[0].toUpperCase())
+        .map((String word) => word[0].toUpperCase())
         .join();
   }
 

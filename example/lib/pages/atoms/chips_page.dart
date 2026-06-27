@@ -13,16 +13,16 @@ class ChipsPage extends StatefulWidget {
 }
 
 class _ChipsPageState extends State<ChipsPage> {
-  final Set<String> _selected = {'Flutter'};
-  final List<String> _tags = ['Diseño', 'Mobile', 'Web'];
+  final Set<String> _selected = <String>{'Flutter'};
+  final List<String> _tags = <String>['Diseño', 'Mobile', 'Web'];
 
   @override
   Widget build(BuildContext context) {
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         const ShowcaseSection(
           title: 'Estáticos',
-          children: [
+          children: <Widget>[
             UiChip(label: 'Etiqueta'),
             UiChip(label: 'Con ícono', icon: Icons.tag),
           ],
@@ -30,12 +30,16 @@ class _ChipsPageState extends State<ChipsPage> {
         ShowcaseSection(
           title: 'Seleccionables (filtros)',
           description: 'Tocar para alternar la selección.',
-          children: [
-            for (final tech in const ['Flutter', 'Dart', 'Material'])
+          children: <Widget>[
+            for (final String tech in const <String>[
+              'Flutter',
+              'Dart',
+              'Material',
+            ])
               UiChip(
                 label: tech,
                 selected: _selected.contains(tech),
-                onSelected: (value) => setState(() {
+                onSelected: (bool value) => setState(() {
                   value ? _selected.add(tech) : _selected.remove(tech);
                 }),
               ),
@@ -43,8 +47,8 @@ class _ChipsPageState extends State<ChipsPage> {
         ),
         ShowcaseSection(
           title: 'Eliminables',
-          children: [
-            for (final tag in _tags)
+          children: <Widget>[
+            for (final String tag in _tags)
               UiChip(
                 label: tag,
                 onDeleted: () => setState(() => _tags.remove(tag)),
@@ -54,7 +58,7 @@ class _ChipsPageState extends State<ChipsPage> {
                 label: 'Restaurar',
                 variant: .ghost,
                 onPressed: () => setState(
-                  () => _tags.addAll(['Diseño', 'Mobile', 'Web']),
+                  () => _tags.addAll(<String>['Diseño', 'Mobile', 'Web']),
                 ),
               ),
           ],

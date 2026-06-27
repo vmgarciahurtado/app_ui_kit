@@ -1,4 +1,5 @@
 import 'package:app_ui_kit/app_ui_kit.dart';
+import 'package:example/catalog/component_category.dart';
 import 'package:flutter/material.dart';
 
 import 'catalog/catalog.dart';
@@ -10,9 +11,9 @@ import 'pages/welcome_page.dart';
 /// componente seleccionado como cuerpo.
 class ShowcaseShell extends StatefulWidget {
   const ShowcaseShell({
-    super.key,
     required this.isDark,
     required this.onToggleTheme,
+    super.key,
   });
 
   final bool isDark;
@@ -52,19 +53,20 @@ class _ShowcaseShellState extends State<ShowcaseShell> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
-        actions: [
+        actions: <Widget>[
           MenuAnchor(
             animated: true,
-            onAnimationStatusChanged: (status) => _animationStatus = status,
+            onAnimationStatusChanged: (AnimationStatus status) =>
+                _animationStatus = status,
             controller: _menuController,
             childFocusNode: _menuButtonFocusNode,
-            menuChildren: [
-              for (final category in catalog)
+            menuChildren: <Widget>[
+              for (final ComponentCategory category in catalog)
                 SubmenuButton(
                   animated: true,
                   leadingIcon: Icon(category.icon),
-                  menuChildren: [
-                    for (final entry in category.entries)
+                  menuChildren: <Widget>[
+                    for (final ComponentEntry entry in category.entries)
                       MenuItemButton(
                         onPressed: () => _select(category.title, entry),
                         child: Text(entry.title),
@@ -73,16 +75,21 @@ class _ShowcaseShellState extends State<ShowcaseShell> {
                   child: Text(category.title),
                 ),
             ],
-            builder: (context, controller, child) {
-              return TextButton.icon(
-                focusNode: _menuButtonFocusNode,
-                onPressed: () => _animationStatus.isForwardOrCompleted
-                    ? controller.close()
-                    : controller.open(),
-                icon: const Icon(Icons.category_outlined),
-                label: const Text('Componentes'),
-              );
-            },
+            builder:
+                (
+                  BuildContext context,
+                  MenuController controller,
+                  Widget? child,
+                ) {
+                  return TextButton.icon(
+                    focusNode: _menuButtonFocusNode,
+                    onPressed: () => _animationStatus.isForwardOrCompleted
+                        ? controller.close()
+                        : controller.open(),
+                    icon: const Icon(Icons.category_outlined),
+                    label: const Text('Componentes'),
+                  );
+                },
           ),
           IconButton(
             tooltip: widget.isDark ? 'Tema claro' : 'Tema oscuro',

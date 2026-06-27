@@ -11,10 +11,10 @@ class LoadersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Tamaños',
-          children: [
+          children: <Widget>[
             UiLoader(size: .sm),
             UiLoader(),
             UiLoader(size: .lg),
@@ -22,7 +22,7 @@ class LoadersPage extends StatelessWidget {
         ),
         ShowcaseSection(
           title: 'Con etiqueta',
-          children: [
+          children: <Widget>[
             UiLoader(size: .lg, label: 'Cargando…'),
           ],
         ),

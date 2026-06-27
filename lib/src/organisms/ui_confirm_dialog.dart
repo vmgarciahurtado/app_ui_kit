@@ -22,9 +22,9 @@ import '../tokens/ui_spacing.dart';
 /// ```
 class UiConfirmDialog extends StatelessWidget {
   const UiConfirmDialog({
-    super.key,
     required this.title,
     required this.message,
+    super.key,
     this.confirmLabel = 'Confirmar',
     this.cancelLabel = 'Cancelar',
     this.danger = false,
@@ -70,7 +70,7 @@ class UiConfirmDialog extends StatelessWidget {
       title: Text(title),
       content: Text(message, style: context.textTheme.bodyMedium),
       actionsPadding: const EdgeInsets.all(UiSpacing.md),
-      actions: [
+      actions: <Widget>[
         UiButton(
           label: cancelLabel,
           variant: .ghost,

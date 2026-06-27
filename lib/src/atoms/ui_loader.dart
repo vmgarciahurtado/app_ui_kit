@@ -30,7 +30,7 @@ class UiLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final indicator = SizedBox.square(
+    final SizedBox indicator = SizedBox.square(
       dimension: size.dimension,
       child: CircularProgressIndicator(strokeWidth: size.strokeWidth),
     );
@@ -38,7 +38,7 @@ class UiLoader extends StatelessWidget {
     if (label == null) return indicator;
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         indicator,
         const SizedBox(height: UiSpacing.sm),
         Text(label!, style: context.textTheme.bodySmall),

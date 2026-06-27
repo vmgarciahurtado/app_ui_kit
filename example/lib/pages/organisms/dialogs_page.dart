@@ -16,7 +16,7 @@ class _DialogsPageState extends State<DialogsPage> {
   String _lastResult = 'Sin interacción todavía.';
 
   Future<void> _openConfirm() async {
-    final confirmed = await UiConfirmDialog.show(
+    final bool? confirmed = await UiConfirmDialog.show(
       context,
       title: '¿Publicar cambios?',
       message: 'Los cambios serán visibles para todos los usuarios.',
@@ -26,7 +26,7 @@ class _DialogsPageState extends State<DialogsPage> {
   }
 
   Future<void> _openDanger() async {
-    final confirmed = await UiConfirmDialog.show(
+    final bool? confirmed = await UiConfirmDialog.show(
       context,
       title: '¿Eliminar cuenta?',
       message: 'Esta acción es permanente y no se puede deshacer.',
@@ -39,13 +39,13 @@ class _DialogsPageState extends State<DialogsPage> {
   @override
   Widget build(BuildContext context) {
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Diálogo de confirmación',
           description:
               'Organismo que compone UiButton y los tokens del sistema. '
               'Resuelve true / false / null según la interacción.',
-          children: [
+          children: <Widget>[
             UiButton(label: 'Confirmación normal', onPressed: _openConfirm),
             UiButton(
               label: 'Confirmación destructiva',
@@ -56,8 +56,8 @@ class _DialogsPageState extends State<DialogsPage> {
         ),
         ShowcaseSection(
           title: 'Resultado',
-          children: [
-            UiBanner(variant: .info, message: _lastResult),
+          children: <Widget>[
+            UiBanner(message: _lastResult),
           ],
         ),
       ],

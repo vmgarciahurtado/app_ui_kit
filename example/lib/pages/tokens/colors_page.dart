@@ -10,33 +10,45 @@ class ColorsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = context.colorScheme;
-    final status = context.statusColors;
+    final ColorScheme scheme = context.colorScheme;
+    final UiStatusColors status = context.statusColors;
 
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Colores de marca',
           description:
               'Derivados del primary/secondary que el consumidor pasa a UiKitTheme.',
-          children: [
+          children: <Widget>[
             _Swatch('primary', scheme.primary, scheme.onPrimary),
-            _Swatch('primaryContainer', scheme.primaryContainer,
-                scheme.onPrimaryContainer),
+            _Swatch(
+              'primaryContainer',
+              scheme.primaryContainer,
+              scheme.onPrimaryContainer,
+            ),
             _Swatch('secondary', scheme.secondary, scheme.onSecondary),
-            _Swatch('secondaryContainer', scheme.secondaryContainer,
-                scheme.onSecondaryContainer),
+            _Swatch(
+              'secondaryContainer',
+              scheme.secondaryContainer,
+              scheme.onSecondaryContainer,
+            ),
             _Swatch('tertiary', scheme.tertiary, scheme.onTertiary),
           ],
         ),
         ShowcaseSection(
           title: 'Superficies',
-          children: [
+          children: <Widget>[
             _Swatch('surface', scheme.surface, scheme.onSurface),
-            _Swatch('surfaceContainerLow', scheme.surfaceContainerLow,
-                scheme.onSurface),
-            _Swatch('surfaceContainerHigh', scheme.surfaceContainerHigh,
-                scheme.onSurface),
+            _Swatch(
+              'surfaceContainerLow',
+              scheme.surfaceContainerLow,
+              scheme.onSurface,
+            ),
+            _Swatch(
+              'surfaceContainerHigh',
+              scheme.surfaceContainerHigh,
+              scheme.onSurface,
+            ),
             _Swatch('outline', scheme.outline, scheme.surface),
           ],
         ),
@@ -45,7 +57,7 @@ class ColorsPage extends StatelessWidget {
           description:
               'error viene del ColorScheme; el resto de UiStatusColors '
               '(ThemeExtension sobreescribible).',
-          children: [
+          children: <Widget>[
             _Swatch('error', scheme.error, scheme.onError),
             _Swatch('success', status.success, scheme.surface),
             _Swatch('warning', status.warning, scheme.surface),

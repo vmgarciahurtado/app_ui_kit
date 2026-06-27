@@ -11,16 +11,16 @@ class CardsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Básica',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 320,
               child: UiCard(
                 child: Column(
                   crossAxisAlignment: .start,
-                  children: [
+                  children: <Widget>[
                     Text('Título', style: context.textTheme.titleMedium),
                     const SizedBox(height: UiSpacing.xs),
                     Text(
@@ -36,7 +36,7 @@ class CardsPage extends StatelessWidget {
         ShowcaseSection(
           title: 'Interactiva',
           description: 'Con onTap la tarjeta responde con ripple.',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 320,
               child: UiCard(
@@ -44,7 +44,7 @@ class CardsPage extends StatelessWidget {
                   const SnackBar(content: Text('Tarjeta tocada')),
                 ),
                 child: const Row(
-                  children: [
+                  children: <Widget>[
                     Icon(Icons.touch_app_outlined),
                     SizedBox(width: UiSpacing.sm),
                     Expanded(child: Text('Tócame')),
@@ -58,22 +58,26 @@ class CardsPage extends StatelessWidget {
         ShowcaseSection(
           title: 'Compuesta',
           description: 'Composición con otros componentes del sistema.',
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 380,
               child: UiCard(
                 child: Row(
-                  children: [
+                  children: <Widget>[
                     const UiAvatar(name: 'Victor García'),
                     const SizedBox(width: UiSpacing.md),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: .start,
-                        children: [
-                          Text('Victor García',
-                              style: context.textTheme.titleMedium),
-                          Text('Flutter developer',
-                              style: context.textTheme.bodySmall),
+                        children: <Widget>[
+                          Text(
+                            'Victor García',
+                            style: context.textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Flutter developer',
+                            style: context.textTheme.bodySmall,
+                          ),
                         ],
                       ),
                     ),

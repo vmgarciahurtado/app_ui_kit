@@ -10,7 +10,7 @@ class SpacingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const spacings = <(String, double)>[
+    const List<(String, double)> spacings = <(String, double)>[
       ('xxs', UiSpacing.xxs),
       ('xs', UiSpacing.xs),
       ('sm', UiSpacing.sm),
@@ -19,29 +19,29 @@ class SpacingPage extends StatelessWidget {
       ('xl', UiSpacing.xl),
       ('xxl', UiSpacing.xxl),
     ];
-    const radii = <(String, double)>[
+    const List<(String, double)> radii = <(String, double)>[
       ('sm', UiRadius.sm),
       ('md', UiRadius.md),
       ('lg', UiRadius.lg),
       ('full', UiRadius.full),
     ];
-    const breakpoints = <(String, double)>[
+    const List<(String, double)> breakpoints = <(String, double)>[
       ('mobile', UiBreakpoints.mobile),
       ('tablet', UiBreakpoints.tablet),
       ('desktop', UiBreakpoints.desktop),
     ];
 
     return ShowcaseList(
-      children: [
+      children: <Widget>[
         ShowcaseSection(
           title: 'Espaciado (UiSpacing)',
           description: 'Escala basada en una grilla de 4px.',
-          children: [
-            for (final (name, value) in spacings)
+          children: <Widget>[
+            for (final (String name, double value) in spacings)
               SizedBox(
                 width: double.infinity,
                 child: Row(
-                  children: [
+                  children: <Widget>[
                     SizedBox(
                       width: 110,
                       child: Text(
@@ -64,10 +64,10 @@ class SpacingPage extends StatelessWidget {
         ),
         ShowcaseSection(
           title: 'Radios (UiRadius)',
-          children: [
-            for (final (name, value) in radii)
+          children: <Widget>[
+            for (final (String name, double value) in radii)
               Column(
-                children: [
+                children: <Widget>[
                   Container(
                     width: 72,
                     height: 72,
@@ -85,8 +85,8 @@ class SpacingPage extends StatelessWidget {
         ShowcaseSection(
           title: 'Breakpoints (UiBreakpoints)',
           description: 'Anchos de referencia para layouts responsivos.',
-          children: [
-            for (final (name, value) in breakpoints)
+          children: <Widget>[
+            for (final (String name, double value) in breakpoints)
               UiChip(label: '$name ≥ ${value.toStringAsFixed(0)}px'),
           ],
         ),

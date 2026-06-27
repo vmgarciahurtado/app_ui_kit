@@ -12,12 +12,12 @@ Widget _wrap(Widget child) {
 void main() {
   group('UiKitTheme', () {
     test('registra UiStatusColors como extension del tema', () {
-      final theme = UiKitTheme.light(primary: Colors.indigo);
+      final ThemeData theme = UiKitTheme.light(primary: Colors.indigo);
       expect(theme.extension<UiStatusColors>(), UiStatusColors.light);
     });
 
     test('respeta el color secundario del consumidor', () {
-      final theme = UiKitTheme.dark(
+      final ThemeData theme = UiKitTheme.dark(
         primary: Colors.indigo,
         secondary: Colors.teal,
       );
@@ -25,7 +25,7 @@ void main() {
     });
 
     test('aplica la fuente de titulares solo a los estilos de titular', () {
-      final theme = UiKitTheme.light(
+      final ThemeData theme = UiKitTheme.light(
         primary: Colors.indigo,
         fontFamily: 'Inter',
         headingFontFamily: 'Sora',
@@ -37,14 +37,21 @@ void main() {
   });
 
   group('UiButton', () {
-    testWidgets('muestra loader y se deshabilita cuando loading es true',
-        (tester) async {
-      var pressed = false;
-      await tester.pumpWidget(_wrap(
-        UiButton(label: 'Guardar', loading: true, onPressed: () {
-          pressed = true;
-        }),
-      ));
+    testWidgets('muestra loader y se deshabilita cuando loading es true', (
+      WidgetTester tester,
+    ) async {
+      bool pressed = false;
+      await tester.pumpWidget(
+        _wrap(
+          UiButton(
+            label: 'Guardar',
+            loading: true,
+            onPressed: () {
+              pressed = true;
+            },
+          ),
+        ),
+      );
 
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
       expect(find.text('Guardar'), findsNothing);
@@ -53,17 +60,20 @@ void main() {
       expect(pressed, isFalse);
     });
 
-    testWidgets('renderiza el widget Material según la variante',
-        (tester) async {
-      await tester.pumpWidget(_wrap(
-        const Column(
-          children: [
-            UiButton(label: 'a'),
-            UiButton(label: 'b', variant: .outline),
-            UiButton(label: 'c', variant: .ghost),
-          ],
+    testWidgets('renderiza el widget Material según la variante', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const Column(
+            children: <Widget>[
+              UiButton(label: 'a'),
+              UiButton(label: 'b', variant: .outline),
+              UiButton(label: 'c', variant: .ghost),
+            ],
+          ),
         ),
-      ));
+      );
 
       expect(find.byType(FilledButton), findsOneWidget);
       expect(find.byType(OutlinedButton), findsOneWidget);
@@ -72,10 +82,14 @@ void main() {
   });
 
   group('UiTextField', () {
-    testWidgets('alterna la visibilidad del texto oculto', (tester) async {
-      await tester.pumpWidget(_wrap(
-        const UiTextField(label: 'Contraseña', obscureText: true),
-      ));
+    testWidgets('alterna la visibilidad del texto oculto', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiTextField(label: 'Contraseña', obscureText: true),
+        ),
+      );
 
       EditableText editable() => tester.widget(find.byType(EditableText));
       expect(editable().obscureText, isTrue);
@@ -87,16 +101,20 @@ void main() {
   });
 
   group('UiBanner', () {
-    testWidgets('muestra título, mensaje y botón de cerrar', (tester) async {
-      var closed = false;
-      await tester.pumpWidget(_wrap(
-        UiBanner(
-          variant: .success,
-          title: 'Listo',
-          message: 'Cambios guardados.',
-          onClose: () => closed = true,
+    testWidgets('muestra título, mensaje y botón de cerrar', (
+      WidgetTester tester,
+    ) async {
+      bool closed = false;
+      await tester.pumpWidget(
+        _wrap(
+          UiBanner(
+            variant: .success,
+            title: 'Listo',
+            message: 'Cambios guardados.',
+            onClose: () => closed = true,
+          ),
         ),
-      ));
+      );
 
       expect(find.text('Listo'), findsOneWidget);
       expect(find.text('Cambios guardados.'), findsOneWidget);
@@ -107,34 +125,39 @@ void main() {
   });
 
   group('UiAvatar', () {
-    testWidgets('muestra las iniciales de las dos primeras palabras',
-        (tester) async {
-      await tester.pumpWidget(_wrap(
-        const UiAvatar(name: 'Victor García Hurtado'),
-      ));
+    testWidgets('muestra las iniciales de las dos primeras palabras', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiAvatar(name: 'Victor García Hurtado'),
+        ),
+      );
       expect(find.text('VG'), findsOneWidget);
     });
   });
 
   group('UiConfirmDialog', () {
-    testWidgets('resuelve true al confirmar', (tester) async {
+    testWidgets('resuelve true al confirmar', (WidgetTester tester) async {
       bool? result;
-      await tester.pumpWidget(_wrap(
-        Builder(
-          builder: (context) => UiButton(
-            label: 'Abrir',
-            onPressed: () async {
-              result = await UiConfirmDialog.show(
-                context,
-                title: '¿Eliminar?',
-                message: 'No se puede deshacer.',
-                confirmLabel: 'Eliminar',
-                danger: true,
-              );
-            },
+      await tester.pumpWidget(
+        _wrap(
+          Builder(
+            builder: (BuildContext context) => UiButton(
+              label: 'Abrir',
+              onPressed: () async {
+                result = await UiConfirmDialog.show(
+                  context,
+                  title: '¿Eliminar?',
+                  message: 'No se puede deshacer.',
+                  confirmLabel: 'Eliminar',
+                  danger: true,
+                );
+              },
+            ),
           ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Abrir'));
       await tester.pumpAndSettle();
@@ -147,14 +170,18 @@ void main() {
   });
 
   group('UiEmptyState', () {
-    testWidgets('muestra título, mensaje y acción', (tester) async {
-      await tester.pumpWidget(_wrap(
-        const UiEmptyState(
-          title: 'Sin resultados',
-          message: 'Intenta con otra búsqueda.',
-          action: UiButton(label: 'Reintentar'),
+    testWidgets('muestra título, mensaje y acción', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiEmptyState(
+            title: 'Sin resultados',
+            message: 'Intenta con otra búsqueda.',
+            action: UiButton(label: 'Reintentar'),
+          ),
         ),
-      ));
+      );
 
       expect(find.text('Sin resultados'), findsOneWidget);
       expect(find.text('Intenta con otra búsqueda.'), findsOneWidget);
