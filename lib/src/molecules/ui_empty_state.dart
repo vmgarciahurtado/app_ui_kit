@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/build_context_theme.dart';
+import '../tokens/ui_icon_size.dart';
 import '../tokens/ui_spacing.dart';
 
 /// Estado vacío para listas o pantallas sin contenido.
@@ -39,7 +40,7 @@ class UiEmptyState extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              size: 56,
+              size: UiIconSize.xl,
               color: context.colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: UiSpacing.md),

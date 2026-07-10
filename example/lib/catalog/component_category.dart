@@ -2,7 +2,8 @@ import 'package:flutter/widgets.dart';
 
 import 'component_entry.dart';
 
-/// Una categoría del sistema (tokens, átomos, moléculas, organismos).
+/// Una categoría del sistema (tokens, átomos, moléculas, organismos,
+/// plantillas y páginas).
 class ComponentCategory {
   const ComponentCategory({
     required this.title,

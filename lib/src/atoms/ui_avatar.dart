@@ -53,7 +53,7 @@ class UiAvatar extends StatelessWidget {
       backgroundColor: context.colorScheme.primaryContainer,
       child: Text(
         _initials,
-        style: TextStyle(
+        style: context.textTheme.titleMedium?.copyWith(
           color: context.colorScheme.onPrimaryContainer,
           fontWeight: FontWeight.w600,
           fontSize: size.dimension * 0.36,

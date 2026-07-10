@@ -15,12 +15,17 @@ Recorrido por los componentes y el showcase:
 
 ```
 lib/src/
-├── tokens/        # Valores crudos: UiSpacing, UiRadius, UiBreakpoints
+├── tokens/        # Valores crudos: UiSpacing, UiRadius, UiIconSize, UiBreakpoints
 ├── theme/         # Foundation: UiKitTheme, UiStatusColors, extensión de BuildContext
 ├── atoms/         # UiButton, UiTextField, UiChip, UiLoader, UiAvatar
-├── molecules/     # UiCard, UiBanner, UiEmptyState
-└── organisms/     # UiConfirmDialog
+├── molecules/     # UiCard, UiBanner, UiEmptyState, UiConfirmDialog, UiListTile
+├── organisms/     # UiListSection, UiProfileHeader
+└── templates/     # UiPageTemplate, UiDetailPageTemplate
 ```
+
+Las **páginas** (último nivel de Atomic Design) son instancias de una plantilla
+con datos reales, por lo que viven en la app consumidora y no en el paquete.
+El showcase incluye dos de ejemplo (`Página de equipo` y `Página de perfil`).
 
 Reglas del sistema:
 
@@ -95,7 +100,12 @@ context.statusColors.success
 | `UiCard` | Molécula | padding consistente, `onTap` con ripple |
 | `UiBanner` | Molécula | `info`, `success`, `warning`, `error` · título y cierre opcionales |
 | `UiEmptyState` | Molécula | ícono, título, mensaje y acción opcionales |
-| `UiConfirmDialog` | Organismo | `show()` resuelve `true`/`false`/`null`, modo destructivo |
+| `UiConfirmDialog` | Molécula | widget puro con `onConfirm`/`onCancel`; `show()` resuelve `true`/`false`/`null` |
+| `UiListTile` | Molécula | avatar, título, subtítulo, tag como chip, `onTap` |
+| `UiListSection` | Organismo | encabezado con acción, ítems con avatar/tag, `emptyState` |
+| `UiProfileHeader` | Organismo | avatar, nombre, subtítulo, tags como chips, acciones |
+| `UiPageTemplate` | Plantilla | AppBar, secciones con ancho máximo responsive, footer de acción |
+| `UiDetailPageTemplate` | Plantilla | encabezado fijo bajo el AppBar, secciones desplazables, footer |
 
 Ejemplo:
 
@@ -120,7 +130,8 @@ final confirmed = await UiConfirmDialog.show(
 
 La app de ejemplo en [example/](example/) documenta visualmente cada componente
 con sus variantes, navegando por categorías (tokens, átomos, moléculas,
-organismos) con `MenuAnchor`, y con toggle de tema claro/oscuro.
+organismos, plantillas y páginas) con `MenuAnchor`, y con toggle de tema
+claro/oscuro.
 
 ```bash
 cd example

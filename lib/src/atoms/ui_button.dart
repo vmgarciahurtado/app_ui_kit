@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../theme/build_context_theme.dart';
+import '../tokens/ui_icon_size.dart';
 import '../tokens/ui_spacing.dart';
+import 'ui_loader.dart';
 
 /// Variantes visuales de [UiButton], en orden de énfasis.
 enum UiButtonVariant {
@@ -86,17 +88,12 @@ class UiButton extends StatelessWidget {
   }
 
   Widget _content() {
-    if (loading) {
-      return const SizedBox.square(
-        dimension: 18,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      );
-    }
+    if (loading) return const UiLoader(size: .sm);
     if (icon == null) return Text(label);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(icon, size: 18),
+        Icon(icon, size: UiIconSize.sm),
         const SizedBox(width: UiSpacing.sm),
         Text(label),
       ],

@@ -12,14 +12,21 @@ export 'src/atoms/ui_text_field.dart';
 // Moléculas
 export 'src/molecules/ui_banner.dart';
 export 'src/molecules/ui_card.dart';
+export 'src/molecules/ui_confirm_dialog.dart';
 export 'src/molecules/ui_empty_state.dart';
+export 'src/molecules/ui_list_tile.dart';
 // Organismos
-export 'src/organisms/ui_confirm_dialog.dart';
+export 'src/organisms/ui_list_section.dart';
+export 'src/organisms/ui_profile_header.dart';
+// Plantillas
+export 'src/templates/ui_detail_page_template.dart';
+export 'src/templates/ui_page_template.dart';
 // Theme (foundation)
 export 'src/theme/build_context_theme.dart';
 export 'src/theme/ui_kit_theme.dart';
 export 'src/theme/ui_status_colors.dart';
 // Tokens
 export 'src/tokens/ui_breakpoints.dart';
+export 'src/tokens/ui_icon_size.dart';
 export 'src/tokens/ui_radius.dart';
 export 'src/tokens/ui_spacing.dart';

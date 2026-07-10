@@ -7,8 +7,10 @@ import '../tokens/ui_spacing.dart';
 
 /// Diálogo de confirmación del sistema de diseño.
 ///
-/// Organismo que compone átomos ([UiButton]) y tokens para ofrecer una
-/// confirmación consistente en toda la app. Usar [show] para abrirlo:
+/// Molécula que une átomos ([UiButton]) y texto para ofrecer una
+/// confirmación consistente en toda la app. El widget es puro: no conoce
+/// el `Navigator`, solo notifica por [onConfirm] y [onCancel]. El helper
+/// [show] lo abre con `showDialog` y cablea los callbacks al `Navigator`:
 ///
 /// ```dart
 /// final confirmed = await UiConfirmDialog.show(
@@ -24,6 +26,8 @@ class UiConfirmDialog extends StatelessWidget {
   const UiConfirmDialog({
     required this.title,
     required this.message,
+    required this.onConfirm,
+    required this.onCancel,
     super.key,
     this.confirmLabel = 'Confirmar',
     this.cancelLabel = 'Cancelar',
@@ -34,6 +38,12 @@ class UiConfirmDialog extends StatelessWidget {
   final String message;
   final String confirmLabel;
   final String cancelLabel;
+
+  /// Invocado al tocar la acción de confirmar.
+  final VoidCallback onConfirm;
+
+  /// Invocado al tocar la acción de cancelar.
+  final VoidCallback onCancel;
 
   /// Resalta la acción de confirmar con el color de error del tema.
   final bool danger;
@@ -50,12 +60,14 @@ class UiConfirmDialog extends StatelessWidget {
   }) {
     return showDialog<bool>(
       context: context,
-      builder: (_) => UiConfirmDialog(
+      builder: (BuildContext dialogContext) => UiConfirmDialog(
         title: title,
         message: message,
         confirmLabel: confirmLabel,
         cancelLabel: cancelLabel,
         danger: danger,
+        onConfirm: () => Navigator.of(dialogContext).pop(true),
+        onCancel: () => Navigator.of(dialogContext).pop(false),
       ),
     );
   }
@@ -71,15 +83,11 @@ class UiConfirmDialog extends StatelessWidget {
       content: Text(message, style: context.textTheme.bodyMedium),
       actionsPadding: const EdgeInsets.all(UiSpacing.md),
       actions: <Widget>[
-        UiButton(
-          label: cancelLabel,
-          variant: .ghost,
-          onPressed: () => Navigator.of(context).pop(false),
-        ),
+        UiButton(label: cancelLabel, variant: .ghost, onPressed: onCancel),
         UiButton(
           label: confirmLabel,
           variant: danger ? .danger : .primary,
-          onPressed: () => Navigator.of(context).pop(true),
+          onPressed: onConfirm,
         ),
       ],
     );

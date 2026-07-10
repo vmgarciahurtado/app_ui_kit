@@ -43,8 +43,8 @@ class _DialogsPageState extends State<DialogsPage> {
         ShowcaseSection(
           title: 'Diálogo de confirmación',
           description:
-              'Organismo que compone UiButton y los tokens del sistema. '
-              'Resuelve true / false / null según la interacción.',
+              'Molécula que une texto y átomos UiButton con los tokens del '
+              'sistema. Resuelve true / false / null según la interacción.',
           children: <Widget>[
             UiButton(label: 'Confirmación normal', onPressed: _openConfirm),
             UiButton(

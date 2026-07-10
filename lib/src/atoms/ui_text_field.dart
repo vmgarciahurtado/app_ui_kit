@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 /// de foco y error) y agrega manejo automático de visibilidad para campos
 /// de contraseña.
 ///
+///
 /// ```dart
 /// UiTextField(
 ///   label: 'Correo',

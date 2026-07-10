@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../tokens/ui_icon_size.dart';
+
 /// Chip del sistema de diseño.
 ///
 /// Sirve tanto para etiquetas estáticas como para filtros seleccionables:
@@ -37,7 +39,7 @@ class UiChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawChip(
       label: Text(label),
-      avatar: icon != null ? Icon(icon, size: 18) : null,
+      avatar: icon != null ? Icon(icon, size: UiIconSize.sm) : null,
       selected: selected,
       onSelected: onSelected,
       onDeleted: onDeleted,

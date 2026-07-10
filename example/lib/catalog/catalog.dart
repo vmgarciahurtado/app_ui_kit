@@ -7,8 +7,15 @@ import '../pages/atoms/loaders_page.dart';
 import '../pages/atoms/text_fields_page.dart';
 import '../pages/molecules/banners_page.dart';
 import '../pages/molecules/cards_page.dart';
+import '../pages/molecules/dialogs_page.dart';
 import '../pages/molecules/empty_states_page.dart';
-import '../pages/organisms/dialogs_page.dart';
+import '../pages/molecules/list_tiles_page.dart';
+import '../pages/organisms/list_sections_page.dart';
+import '../pages/organisms/profile_headers_page.dart';
+import '../pages/pages/profile_page.dart';
+import '../pages/pages/team_page.dart';
+import '../pages/templates/detail_templates_page.dart';
+import '../pages/templates/page_templates_page.dart';
 import '../pages/tokens/colors_page.dart';
 import '../pages/tokens/spacing_page.dart';
 import '../pages/tokens/typography_page.dart';
@@ -56,13 +63,53 @@ final List<ComponentCategory> catalog = <ComponentCategory>[
         title: 'Estados vacíos',
         builder: (_) => const EmptyStatesPage(),
       ),
+      ComponentEntry(title: 'Diálogos', builder: (_) => const DialogsPage()),
+      ComponentEntry(
+        title: 'Filas de lista',
+        builder: (_) => const ListTilesPage(),
+      ),
     ],
   ),
   ComponentCategory(
     title: 'Organismos',
     icon: Icons.widgets_outlined,
     entries: <ComponentEntry>[
-      ComponentEntry(title: 'Diálogos', builder: (_) => const DialogsPage()),
+      ComponentEntry(
+        title: 'Listas',
+        builder: (_) => const ListSectionsPage(),
+      ),
+      ComponentEntry(
+        title: 'Encabezados de perfil',
+        builder: (_) => const ProfileHeadersPage(),
+      ),
+    ],
+  ),
+  ComponentCategory(
+    title: 'Plantillas',
+    icon: Icons.view_quilt_outlined,
+    entries: <ComponentEntry>[
+      ComponentEntry(
+        title: 'Plantilla de página',
+        builder: (_) => const PageTemplatesPage(),
+      ),
+      ComponentEntry(
+        title: 'Plantilla de detalle',
+        builder: (_) => const DetailTemplatesPage(),
+      ),
+    ],
+  ),
+  ComponentCategory(
+    title: 'Páginas',
+    icon: Icons.web_outlined,
+    entries: <ComponentEntry>[
+      ComponentEntry(
+        title: 'Página de equipo',
+        builder: (_) => const TeamPage(),
+      ),
+      ComponentEntry(
+        title: 'Página de perfil',
+        builder: (_) => const ProfilePage(),
+      ),
     ],
   ),
 ];

@@ -53,7 +53,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(UiLoader), findsOneWidget);
       expect(find.text('Guardar'), findsNothing);
 
       await tester.tap(find.byType(UiButton));
@@ -137,7 +137,52 @@ void main() {
     });
   });
 
+  group('UiListTile', () {
+    testWidgets('muestra avatar, textos y etiqueta', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiListTile(
+            title: 'Victor García',
+            subtitle: 'Desarrollador móvil',
+            avatarName: 'Victor García',
+            tag: 'Admin',
+          ),
+        ),
+      );
+
+      expect(find.byType(UiAvatar), findsOneWidget);
+      expect(find.text('Victor García'), findsOneWidget);
+      expect(find.text('Desarrollador móvil'), findsOneWidget);
+      expect(find.widgetWithText(UiChip, 'Admin'), findsOneWidget);
+    });
+  });
+
   group('UiConfirmDialog', () {
+    testWidgets('es un widget puro: notifica por callbacks sin Navigator', (
+      WidgetTester tester,
+    ) async {
+      bool confirmed = false;
+      bool cancelled = false;
+      await tester.pumpWidget(
+        _wrap(
+          UiConfirmDialog(
+            title: '¿Continuar?',
+            message: 'Sin navegación involucrada.',
+            onConfirm: () => confirmed = true,
+            onCancel: () => cancelled = true,
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Confirmar'));
+      expect(confirmed, isTrue);
+
+      await tester.tap(find.text('Cancelar'));
+      expect(cancelled, isTrue);
+    });
+
     testWidgets('resuelve true al confirmar', (WidgetTester tester) async {
       bool? result;
       await tester.pumpWidget(
@@ -166,6 +211,118 @@ void main() {
       await tester.tap(find.text('Eliminar'));
       await tester.pumpAndSettle();
       expect(result, isTrue);
+    });
+  });
+
+  group('UiListSection', () {
+    testWidgets('muestra encabezado, acción y elementos con avatar y tag', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiListSection(
+            title: 'Integrantes',
+            action: UiButton(label: 'Agregar', variant: .ghost),
+            items: <UiListItem>[
+              UiListItem(
+                title: 'Victor García',
+                subtitle: 'victor@correo.com',
+                avatarName: 'Victor García',
+                tag: 'Admin',
+              ),
+              UiListItem(title: 'Laura Pérez', avatarName: 'Laura Pérez'),
+            ],
+          ),
+        ),
+      );
+
+      expect(find.text('Integrantes'), findsOneWidget);
+      expect(find.text('Agregar'), findsOneWidget);
+      expect(find.text('Victor García'), findsOneWidget);
+      expect(find.byType(UiAvatar), findsNWidgets(2));
+      expect(find.widgetWithText(UiChip, 'Admin'), findsOneWidget);
+    });
+
+    testWidgets('muestra el emptyState cuando no hay elementos', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiListSection(title: 'Invitaciones', items: <UiListItem>[]),
+        ),
+      );
+
+      expect(find.byType(UiEmptyState), findsOneWidget);
+      expect(find.text('Sin elementos'), findsOneWidget);
+    });
+  });
+
+  group('UiProfileHeader', () {
+    testWidgets('muestra avatar, nombre, subtítulo, tags y acciones', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiProfileHeader(
+            name: 'Victor García',
+            subtitle: 'Desarrollador móvil',
+            tags: <String>['Flutter', 'Dart'],
+            actions: <Widget>[UiButton(label: 'Seguir')],
+          ),
+        ),
+      );
+
+      expect(find.byType(UiAvatar), findsOneWidget);
+      expect(find.text('Victor García'), findsOneWidget);
+      expect(find.text('Desarrollador móvil'), findsOneWidget);
+      expect(find.byType(UiChip), findsNWidgets(2));
+      expect(find.widgetWithText(UiButton, 'Seguir'), findsOneWidget);
+    });
+  });
+
+  group('UiDetailPageTemplate', () {
+    testWidgets('renderiza título, encabezado fijo y secciones', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: UiKitTheme.light(primary: Colors.indigo),
+          home: const UiDetailPageTemplate(
+            title: 'Perfil',
+            header: Text('Encabezado'),
+            sections: <Widget>[Text('Sección A'), Text('Sección B')],
+            footer: UiButton(label: 'Contactar', expanded: true),
+          ),
+        ),
+      );
+
+      expect(find.text('Perfil'), findsOneWidget);
+      expect(find.text('Encabezado'), findsOneWidget);
+      expect(find.text('Sección A'), findsOneWidget);
+      expect(find.text('Sección B'), findsOneWidget);
+      expect(find.widgetWithText(UiButton, 'Contactar'), findsOneWidget);
+    });
+  });
+
+  group('UiPageTemplate', () {
+    testWidgets('renderiza título, secciones y footer', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: UiKitTheme.light(primary: Colors.indigo),
+          home: const UiPageTemplate(
+            title: 'Mi equipo',
+            sections: <Widget>[Text('Sección A'), Text('Sección B')],
+            footer: UiButton(label: 'Invitar', expanded: true),
+          ),
+        ),
+      );
+
+      expect(find.text('Mi equipo'), findsOneWidget);
+      expect(find.text('Sección A'), findsOneWidget);
+      expect(find.text('Sección B'), findsOneWidget);
+      expect(find.widgetWithText(UiButton, 'Invitar'), findsOneWidget);
     });
   });
 

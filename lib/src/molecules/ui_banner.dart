@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/build_context_theme.dart';
+import '../tokens/ui_icon_size.dart';
 import '../tokens/ui_radius.dart';
 import '../tokens/ui_spacing.dart';
 
@@ -65,7 +66,7 @@ class UiBanner extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(icon, color: color, size: 22),
+          Icon(icon, color: color, size: UiIconSize.md),
           const SizedBox(width: UiSpacing.sm),
           Expanded(
             child: Column(
@@ -87,7 +88,7 @@ class UiBanner extends StatelessWidget {
           if (onClose != null)
             IconButton(
               onPressed: onClose,
-              icon: const Icon(Icons.close, size: 18),
+              icon: const Icon(Icons.close, size: UiIconSize.sm),
               visualDensity: VisualDensity.compact,
             ),
         ],
