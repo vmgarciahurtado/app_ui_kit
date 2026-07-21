@@ -17,12 +17,12 @@ class ShowcaseApp extends StatefulWidget {
 }
 
 class _ShowcaseAppState extends State<ShowcaseApp> {
-  ThemeMode _themeMode = .light;
+  ThemeMode _themeMode = ThemeMode.light;
 
   bool get _isDark => _themeMode == ThemeMode.dark;
 
   void _toggleTheme() {
-    setState(() => _themeMode = _isDark ? .light : .dark);
+    setState(() => _themeMode = _isDark ? ThemeMode.light : ThemeMode.dark);
   }
 
   @override

@@ -52,19 +52,19 @@ class UiDetailPageTemplate extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  UiSpacing.lg,
-                  UiSpacing.lg,
-                  UiSpacing.lg,
+                  UiSpacing.large,
+                  UiSpacing.large,
+                  UiSpacing.large,
                   0,
                 ),
                 child: header,
               ),
               Expanded(
                 child: ListView.separated(
-                  padding: const EdgeInsets.all(UiSpacing.lg),
+                  padding: const EdgeInsets.all(UiSpacing.large),
                   itemCount: sections.length,
                   separatorBuilder: (_, _) =>
-                      const SizedBox(height: UiSpacing.xl),
+                      const SizedBox(height: UiSpacing.extraLarge),
                   itemBuilder: (_, int index) => sections[index],
                 ),
               ),
@@ -85,10 +85,10 @@ class UiDetailPageTemplate extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(
-                      UiSpacing.lg,
-                      UiSpacing.sm,
-                      UiSpacing.lg,
-                      UiSpacing.lg,
+                      UiSpacing.large,
+                      UiSpacing.small,
+                      UiSpacing.large,
+                      UiSpacing.large,
                     ),
                     child: footer,
                   ),

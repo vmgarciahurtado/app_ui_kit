@@ -16,15 +16,15 @@ class AvatarsPage extends StatelessWidget {
           title: 'Tamaños',
           description: 'Sin imagen muestra las iniciales del nombre.',
           children: <Widget>[
-            UiAvatar(name: 'Victor García', size: .sm),
+            UiAvatar(name: 'Victor García', size: UiSize.small),
             UiAvatar(name: 'Victor García'),
-            UiAvatar(name: 'Victor García', size: .lg),
+            UiAvatar(name: 'Victor García', size: UiSize.large),
           ],
         ),
         ShowcaseSection(
           title: 'Una sola palabra',
           children: <Widget>[
-            UiAvatar(name: 'Flutter', size: .lg),
+            UiAvatar(name: 'Flutter', size: UiSize.large),
           ],
         ),
       ],

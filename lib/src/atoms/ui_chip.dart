@@ -39,7 +39,7 @@ class UiChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawChip(
       label: Text(label),
-      avatar: icon != null ? Icon(icon, size: UiIconSize.sm) : null,
+      avatar: icon != null ? Icon(icon, size: UiIconSize.small) : null,
       selected: selected,
       onSelected: onSelected,
       onDeleted: onDeleted,

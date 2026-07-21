@@ -22,7 +22,7 @@ class ListSectionsPage extends StatelessWidget {
               title: 'Integrantes',
               action: UiButton(
                 label: 'Agregar',
-                variant: .ghost,
+                variant: UiButtonVariant.ghost,
                 icon: Icons.add,
                 onPressed: () {},
               ),

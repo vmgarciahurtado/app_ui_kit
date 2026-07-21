@@ -17,24 +17,25 @@ class ShowcaseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? description = this.description;
     return Column(
-      crossAxisAlignment: .start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(title, style: context.textTheme.titleMedium),
         if (description != null) ...<Widget>[
-          const SizedBox(height: UiSpacing.xs),
+          const SizedBox(height: UiSpacing.extraSmall),
           Text(
-            description!,
+            description,
             style: context.textTheme.bodySmall?.copyWith(
               color: context.colorScheme.onSurfaceVariant,
             ),
           ),
         ],
-        const SizedBox(height: UiSpacing.md),
+        const SizedBox(height: UiSpacing.medium),
         Wrap(
-          spacing: UiSpacing.md,
-          runSpacing: UiSpacing.md,
-          crossAxisAlignment: .center,
+          spacing: UiSpacing.medium,
+          runSpacing: UiSpacing.medium,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: children,
         ),
       ],

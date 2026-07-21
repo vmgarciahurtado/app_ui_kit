@@ -19,10 +19,10 @@ class CardsPage extends StatelessWidget {
               width: 320,
               child: UiCard(
                 child: Column(
-                  crossAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('Título', style: context.textTheme.titleMedium),
-                    const SizedBox(height: UiSpacing.xs),
+                    const SizedBox(height: UiSpacing.extraSmall),
                     Text(
                       'Contenido de la tarjeta con el estilo del tema.',
                       style: context.textTheme.bodyMedium,
@@ -46,7 +46,7 @@ class CardsPage extends StatelessWidget {
                 child: const Row(
                   children: <Widget>[
                     Icon(Icons.touch_app_outlined),
-                    SizedBox(width: UiSpacing.sm),
+                    SizedBox(width: UiSpacing.small),
                     Expanded(child: Text('Tócame')),
                     Icon(Icons.chevron_right),
                   ],
@@ -65,10 +65,10 @@ class CardsPage extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     const UiAvatar(name: 'Victor García'),
-                    const SizedBox(width: UiSpacing.md),
+                    const SizedBox(width: UiSpacing.medium),
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: .start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             'Victor García',

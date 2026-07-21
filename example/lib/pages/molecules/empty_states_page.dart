@@ -32,7 +32,7 @@ class EmptyStatesPage extends StatelessWidget {
                   'Intenta con otra búsqueda.',
               action: UiButton(
                 label: 'Limpiar filtros',
-                variant: .outline,
+                variant: UiButtonVariant.outline,
                 onPressed: () {},
               ),
             ),

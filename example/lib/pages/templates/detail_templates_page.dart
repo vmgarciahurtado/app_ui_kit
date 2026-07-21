@@ -11,7 +11,7 @@ import '../../widgets/showcase_section.dart';
 class DetailTemplatesPage extends StatelessWidget {
   const DetailTemplatesPage({super.key});
 
-  void _openDemo(BuildContext context) {
+  void _openDemo({required BuildContext context}) {
     unawaited(
       Navigator.of(context).push(
         MaterialPageRoute<void>(
@@ -50,7 +50,7 @@ class DetailTemplatesPage extends StatelessWidget {
             UiButton(
               label: 'Ver plantilla a pantalla completa',
               icon: Icons.open_in_full,
-              onPressed: () => _openDemo(context),
+              onPressed: () => _openDemo(context: context),
             ),
           ],
         ),

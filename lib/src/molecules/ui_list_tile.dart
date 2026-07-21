@@ -43,14 +43,17 @@ class UiListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? avatarName = this.avatarName;
+    final String? subtitle = this.subtitle;
+    final String? tag = this.tag;
     return ListTile(
       onTap: onTap,
       leading: avatarName != null
-          ? UiAvatar(name: avatarName!, image: avatarImage)
+          ? UiAvatar(name: avatarName, image: avatarImage)
           : null,
       title: Text(title),
-      subtitle: subtitle != null ? Text(subtitle!) : null,
-      trailing: tag != null ? UiChip(label: tag!) : null,
+      subtitle: subtitle != null ? Text(subtitle) : null,
+      trailing: tag != null ? UiChip(label: tag) : null,
     );
   }
 }

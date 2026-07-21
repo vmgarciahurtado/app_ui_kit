@@ -68,8 +68,8 @@ void main() {
           const Column(
             children: <Widget>[
               UiButton(label: 'a'),
-              UiButton(label: 'b', variant: .outline),
-              UiButton(label: 'c', variant: .ghost),
+              UiButton(label: 'b', variant: UiButtonVariant.outline),
+              UiButton(label: 'c', variant: UiButtonVariant.ghost),
             ],
           ),
         ),
@@ -108,7 +108,7 @@ void main() {
       await tester.pumpWidget(
         _wrap(
           UiBanner(
-            variant: .success,
+            status: UiStatus.success,
             title: 'Listo',
             message: 'Cambios guardados.',
             onClose: () => closed = true,
@@ -192,7 +192,7 @@ void main() {
               label: 'Abrir',
               onPressed: () async {
                 result = await UiConfirmDialog.show(
-                  context,
+                  context: context,
                   title: '¿Eliminar?',
                   message: 'No se puede deshacer.',
                   confirmLabel: 'Eliminar',
@@ -222,7 +222,7 @@ void main() {
         _wrap(
           const UiListSection(
             title: 'Integrantes',
-            action: UiButton(label: 'Agregar', variant: .ghost),
+            action: UiButton(label: 'Agregar', variant: UiButtonVariant.ghost),
             items: <UiListItem>[
               UiListItem(
                 title: 'Victor García',

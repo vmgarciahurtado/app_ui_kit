@@ -10,7 +10,7 @@ import '../../widgets/showcase_section.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  void _openDemo(BuildContext context) {
+  void _openDemo({required BuildContext context}) {
     unawaited(
       Navigator.of(context).push(
         MaterialPageRoute<void>(builder: (_) => const _ProfileDemoPage()),
@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
             UiButton(
               label: 'Ver página a pantalla completa',
               icon: Icons.open_in_full,
-              onPressed: () => _openDemo(context),
+              onPressed: () => _openDemo(context: context),
             ),
           ],
         ),
@@ -66,7 +66,11 @@ class _ProfileDemoPage extends StatelessWidget {
             icon: Icons.person_add_alt,
             onPressed: () {},
           ),
-          UiButton(label: 'Mensaje', variant: .outline, onPressed: () {}),
+          UiButton(
+            label: 'Mensaje',
+            variant: UiButtonVariant.outline,
+            onPressed: () {},
+          ),
         ],
       ),
       sections: const <Widget>[

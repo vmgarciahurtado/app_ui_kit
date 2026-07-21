@@ -14,31 +14,31 @@ class WelcomePage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: UiBreakpoints.mobile),
         child: Padding(
-          padding: const EdgeInsets.all(UiSpacing.lg),
+          padding: const EdgeInsets.all(UiSpacing.large),
           child: Column(
-            mainAxisAlignment: .center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
                 Icons.auto_awesome_mosaic_outlined,
                 size: 64,
                 color: context.colorScheme.primary,
               ),
-              const SizedBox(height: UiSpacing.lg),
+              const SizedBox(height: UiSpacing.large),
               Text(
                 'app_ui_kit',
                 style: context.textTheme.headlineLarge,
-                textAlign: .center,
+                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: UiSpacing.sm),
+              const SizedBox(height: UiSpacing.small),
               Text(
                 'Sistema de diseño reutilizable para Flutter, organizado con '
                 'Atomic Design: tokens, átomos, moléculas y organismos.',
                 style: context.textTheme.bodyLarge?.copyWith(
                   color: context.colorScheme.onSurfaceVariant,
                 ),
-                textAlign: .center,
+                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: UiSpacing.xl),
+              const SizedBox(height: UiSpacing.extraLarge),
               UiButton(
                 label: 'Explorar componentes',
                 icon: Icons.menu_open,

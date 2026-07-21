@@ -13,9 +13,10 @@ class ShowcaseList extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: UiBreakpoints.tablet),
         child: ListView.separated(
-          padding: const EdgeInsets.all(UiSpacing.lg),
+          padding: const EdgeInsets.all(UiSpacing.large),
           itemCount: children.length,
-          separatorBuilder: (_, _) => const SizedBox(height: UiSpacing.xl),
+          separatorBuilder: (_, _) =>
+              const SizedBox(height: UiSpacing.extraLarge),
           itemBuilder: (_, int index) => children[index],
         ),
       ),

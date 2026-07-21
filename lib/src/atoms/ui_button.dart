@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundations/ui_size.dart';
 import '../theme/build_context_theme.dart';
 import '../tokens/ui_icon_size.dart';
 import '../tokens/ui_spacing.dart';
@@ -42,7 +43,7 @@ class UiButton extends StatelessWidget {
     required this.label,
     super.key,
     this.onPressed,
-    this.variant = .primary,
+    this.variant = UiButtonVariant.primary,
     this.icon,
     this.loading = false,
     this.expanded = false,
@@ -67,14 +68,23 @@ class UiButton extends StatelessWidget {
     final Widget child = _content();
 
     final ButtonStyleButton button = switch (variant) {
-      .primary => FilledButton(onPressed: effectiveOnPressed, child: child),
-      .secondary => FilledButton.tonal(
+      UiButtonVariant.primary => FilledButton(
         onPressed: effectiveOnPressed,
         child: child,
       ),
-      .outline => OutlinedButton(onPressed: effectiveOnPressed, child: child),
-      .ghost => TextButton(onPressed: effectiveOnPressed, child: child),
-      .danger => FilledButton(
+      UiButtonVariant.secondary => FilledButton.tonal(
+        onPressed: effectiveOnPressed,
+        child: child,
+      ),
+      UiButtonVariant.outline => OutlinedButton(
+        onPressed: effectiveOnPressed,
+        child: child,
+      ),
+      UiButtonVariant.ghost => TextButton(
+        onPressed: effectiveOnPressed,
+        child: child,
+      ),
+      UiButtonVariant.danger => FilledButton(
         onPressed: effectiveOnPressed,
         style: FilledButton.styleFrom(
           backgroundColor: context.colorScheme.error,
@@ -88,13 +98,13 @@ class UiButton extends StatelessWidget {
   }
 
   Widget _content() {
-    if (loading) return const UiLoader(size: .sm);
+    if (loading) return const UiLoader(size: UiSize.small);
     if (icon == null) return Text(label);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(icon, size: UiIconSize.sm),
-        const SizedBox(width: UiSpacing.sm),
+        Icon(icon, size: UiIconSize.small),
+        const SizedBox(width: UiSpacing.small),
         Text(label),
       ],
     );

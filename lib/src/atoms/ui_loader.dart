@@ -1,47 +1,53 @@
 import 'package:flutter/material.dart';
 
+import '../foundations/ui_size.dart';
+import '../foundations/ui_sizes.dart';
 import '../theme/build_context_theme.dart';
 import '../tokens/ui_spacing.dart';
-
-/// Tamaños disponibles para [UiLoader].
-enum UiLoaderSize {
-  sm(16, 2),
-  md(28, 3),
-  lg(44, 4);
-
-  const UiLoaderSize(this.dimension, this.strokeWidth);
-
-  final double dimension;
-  final double strokeWidth;
-}
 
 /// Indicador de carga del sistema de diseño.
 ///
 /// ```dart
-/// UiLoader(size: UiLoaderSize.lg, label: 'Cargando…');
+/// UiLoader(size: UiSize.large, label: 'Cargando…');
 /// ```
 class UiLoader extends StatelessWidget {
-  const UiLoader({super.key, this.size = .md, this.label});
+  const UiLoader({super.key, this.size = UiSize.medium, this.label});
 
-  final UiLoaderSize size;
+  final UiSize size;
 
   /// Texto opcional debajo del indicador.
   final String? label;
 
+  /// Traduce el vocabulario [UiSize] al diámetro del indicador,
+  /// tomando los valores de la escala cruda [UiSizes].
+  double get _dimension => switch (size) {
+    UiSize.small => UiSizes.size16,
+    UiSize.medium => UiSizes.size28,
+    UiSize.large => UiSizes.size44,
+  };
+
+  /// Grosor del trazo proporcional a cada tamaño.
+  double get _strokeWidth => switch (size) {
+    UiSize.small => UiSizes.size2,
+    UiSize.medium => UiSizes.size3,
+    UiSize.large => UiSizes.size4,
+  };
+
   @override
   Widget build(BuildContext context) {
     final SizedBox indicator = SizedBox.square(
-      dimension: size.dimension,
-      child: CircularProgressIndicator(strokeWidth: size.strokeWidth),
+      dimension: _dimension,
+      child: CircularProgressIndicator(strokeWidth: _strokeWidth),
     );
 
+    final String? label = this.label;
     if (label == null) return indicator;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         indicator,
-        const SizedBox(height: UiSpacing.sm),
-        Text(label!, style: context.textTheme.bodySmall),
+        const SizedBox(height: UiSpacing.small),
+        Text(label, style: context.textTheme.bodySmall),
       ],
     );
   }

@@ -10,7 +10,7 @@ import '../../widgets/showcase_section.dart';
 class TeamPage extends StatelessWidget {
   const TeamPage({super.key});
 
-  void _openDemo(BuildContext context) {
+  void _openDemo({required BuildContext context}) {
     unawaited(
       Navigator.of(context).push(
         MaterialPageRoute<void>(builder: (_) => const _TeamDemoPage()),
@@ -32,7 +32,7 @@ class TeamPage extends StatelessWidget {
             UiButton(
               label: 'Ver página a pantalla completa',
               icon: Icons.open_in_full,
-              onPressed: () => _openDemo(context),
+              onPressed: () => _openDemo(context: context),
             ),
           ],
         ),
@@ -77,7 +77,7 @@ class _TeamDemoPageState extends State<_TeamDemoPage> {
 
   Future<void> _removeLastMember() async {
     final bool? confirmed = await UiConfirmDialog.show(
-      context,
+      context: context,
       title: '¿Quitar integrante?',
       message: 'Perderá el acceso al proyecto de inmediato.',
       confirmLabel: 'Quitar',
@@ -110,7 +110,7 @@ class _TeamDemoPageState extends State<_TeamDemoPage> {
           title: 'Integrantes',
           action: UiButton(
             label: 'Quitar último',
-            variant: .ghost,
+            variant: UiButtonVariant.ghost,
             icon: Icons.person_remove_outlined,
             onPressed: _members.isEmpty ? null : _removeLastMember,
           ),

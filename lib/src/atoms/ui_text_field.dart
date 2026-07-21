@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 ///   label: 'Correo',
 ///   hint: 'tu@correo.com',
 ///   keyboardType: TextInputType.emailAddress,
-///   validator: (value) => value!.contains('@') ? null : 'Correo inválido',
+///   validator: (value) =>
+///       (value ?? '').contains('@') ? null : 'Correo inválido',
 /// );
 /// ```
 class UiTextField extends StatefulWidget {

@@ -46,9 +46,10 @@ class UiPageTemplate extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: UiBreakpoints.tablet),
           child: ListView.separated(
-            padding: const EdgeInsets.all(UiSpacing.lg),
+            padding: const EdgeInsets.all(UiSpacing.large),
             itemCount: sections.length,
-            separatorBuilder: (_, _) => const SizedBox(height: UiSpacing.xl),
+            separatorBuilder: (_, _) =>
+                const SizedBox(height: UiSpacing.extraLarge),
             itemBuilder: (_, int index) => sections[index],
           ),
         ),
@@ -66,10 +67,10 @@ class UiPageTemplate extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(
-                      UiSpacing.lg,
-                      UiSpacing.sm,
-                      UiSpacing.lg,
-                      UiSpacing.lg,
+                      UiSpacing.large,
+                      UiSpacing.small,
+                      UiSpacing.large,
+                      UiSpacing.large,
                     ),
                     child: footer,
                   ),

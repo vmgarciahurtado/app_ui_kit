@@ -27,7 +27,7 @@ class _ShowcaseShellState extends State<ShowcaseShell> {
   final MenuController _menuController = MenuController();
   final FocusNode _menuButtonFocusNode = FocusNode(debugLabel: 'Menú');
 
-  AnimationStatus _animationStatus = .dismissed;
+  AnimationStatus _animationStatus = AnimationStatus.dismissed;
   String? _categoryTitle;
   ComponentEntry? _selected;
 
@@ -37,19 +37,26 @@ class _ShowcaseShellState extends State<ShowcaseShell> {
     super.dispose();
   }
 
-  void _select(String categoryTitle, ComponentEntry entry) {
+  void _select({
+    required String categoryTitle,
+    required ComponentEntry entry,
+  }) {
     setState(() {
       _categoryTitle = categoryTitle;
       _selected = entry;
     });
   }
 
-  String get _title => _selected == null
-      ? 'app_ui_kit'
-      : '$_categoryTitle · ${_selected!.title}';
+  String get _title {
+    final ComponentEntry? selected = _selected;
+    return selected == null
+        ? 'app_ui_kit'
+        : '$_categoryTitle · ${selected.title}';
+  }
 
   @override
   Widget build(BuildContext context) {
+    final ComponentEntry? selected = _selected;
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
@@ -68,7 +75,10 @@ class _ShowcaseShellState extends State<ShowcaseShell> {
                   menuChildren: <Widget>[
                     for (final ComponentEntry entry in category.entries)
                       MenuItemButton(
-                        onPressed: () => _select(category.title, entry),
+                        onPressed: () => _select(
+                          categoryTitle: category.title,
+                          entry: entry,
+                        ),
                         child: Text(entry.title),
                       ),
                   ],
@@ -100,12 +110,12 @@ class _ShowcaseShellState extends State<ShowcaseShell> {
                   : Icons.dark_mode_outlined,
             ),
           ),
-          const SizedBox(width: UiSpacing.sm),
+          const SizedBox(width: UiSpacing.small),
         ],
       ),
-      body: _selected == null
+      body: selected == null
           ? WelcomePage(onExplore: _menuController.open)
-          : Builder(builder: _selected!.builder),
+          : Builder(builder: selected.builder),
     );
   }
 }

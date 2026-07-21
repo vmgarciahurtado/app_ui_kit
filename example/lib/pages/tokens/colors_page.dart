@@ -81,14 +81,14 @@ class _Swatch extends StatelessWidget {
     return Container(
       width: 170,
       height: 72,
-      padding: const EdgeInsets.all(UiSpacing.sm),
+      padding: const EdgeInsets.all(UiSpacing.small),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: UiRadius.borderMd,
+        borderRadius: UiRadius.borderMedium,
         border: Border.all(color: context.colorScheme.outlineVariant),
       ),
       child: Align(
-        alignment: .bottomLeft,
+        alignment: Alignment.bottomLeft,
         child: Text(
           name,
           style: context.textTheme.labelSmall?.copyWith(color: onColor),

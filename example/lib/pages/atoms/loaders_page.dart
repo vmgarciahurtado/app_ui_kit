@@ -15,15 +15,15 @@ class LoadersPage extends StatelessWidget {
         ShowcaseSection(
           title: 'Tamaños',
           children: <Widget>[
-            UiLoader(size: .sm),
+            UiLoader(size: UiSize.small),
             UiLoader(),
-            UiLoader(size: .lg),
+            UiLoader(size: UiSize.large),
           ],
         ),
         ShowcaseSection(
           title: 'Con etiqueta',
           children: <Widget>[
-            UiLoader(size: .lg, label: 'Cargando…'),
+            UiLoader(size: UiSize.large, label: 'Cargando…'),
           ],
         ),
       ],

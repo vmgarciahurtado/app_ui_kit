@@ -36,8 +36,8 @@ class TypographyPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: Row(
-                  crossAxisAlignment: .baseline,
-                  textBaseline: .alphabetic,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
                   children: <Widget>[
                     SizedBox(
                       width: 130,
@@ -48,12 +48,12 @@ class TypographyPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: UiSpacing.md),
+                    const SizedBox(width: UiSpacing.medium),
                     Expanded(
                       child: Text(
                         'Sistema de diseño',
                         style: style,
-                        overflow: .ellipsis,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

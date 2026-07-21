@@ -39,7 +39,11 @@ class UiListItem {
 /// ```dart
 /// UiListSection(
 ///   title: 'Integrantes',
-///   action: UiButton(label: 'Agregar', variant: .ghost, onPressed: _add),
+///   action: UiButton(
+///     label: 'Agregar',
+///     variant: UiButtonVariant.ghost,
+///     onPressed: _add,
+///   ),
 ///   items: [
 ///     UiListItem(
 ///       title: 'Victor García',
@@ -70,24 +74,25 @@ class UiListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget? action = this.action;
     return UiCard(
-      padding: const EdgeInsets.symmetric(vertical: UiSpacing.sm),
+      padding: const EdgeInsets.symmetric(vertical: UiSpacing.small),
       child: Column(
-        crossAxisAlignment: .start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(
-              UiSpacing.md,
-              UiSpacing.xs,
-              UiSpacing.md,
-              UiSpacing.xs,
+              UiSpacing.medium,
+              UiSpacing.extraSmall,
+              UiSpacing.medium,
+              UiSpacing.extraSmall,
             ),
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: Text(title, style: context.textTheme.titleMedium),
                 ),
-                if (action != null) action!,
+                if (action != null) action,
               ],
             ),
           ),

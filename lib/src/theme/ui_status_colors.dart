@@ -43,11 +43,13 @@ class UiStatusColors extends ThemeExtension<UiStatusColors> {
 
   @override
   UiStatusColors lerp(ThemeExtension<UiStatusColors>? other, double t) {
-    if (other is! UiStatusColors) return this;
-    return UiStatusColors(
-      success: Color.lerp(success, other.success, t)!,
-      warning: Color.lerp(warning, other.warning, t)!,
-      info: Color.lerp(info, other.info, t)!,
-    );
+    if (other is UiStatusColors) {
+      return UiStatusColors(
+        success: Color.lerp(success, other.success, t) ?? other.success,
+        warning: Color.lerp(warning, other.warning, t) ?? other.warning,
+        info: Color.lerp(info, other.info, t) ?? other.info,
+      );
+    }
+    return this;
   }
 }

@@ -14,7 +14,7 @@ import '../tokens/ui_spacing.dart';
 ///
 /// ```dart
 /// final confirmed = await UiConfirmDialog.show(
-///   context,
+///   context: context,
 ///   title: '¿Eliminar elemento?',
 ///   message: 'Esta acción no se puede deshacer.',
 ///   confirmLabel: 'Eliminar',
@@ -50,8 +50,8 @@ class UiConfirmDialog extends StatelessWidget {
 
   /// Abre el diálogo y resuelve con `true` si el usuario confirma,
   /// `false` si cancela y `null` si lo descarta.
-  static Future<bool?> show(
-    BuildContext context, {
+  static Future<bool?> show({
+    required BuildContext context,
     required String title,
     required String message,
     String confirmLabel = 'Confirmar',
@@ -75,18 +75,22 @@ class UiConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: const RoundedRectangleBorder(borderRadius: UiRadius.borderLg),
+      shape: const RoundedRectangleBorder(borderRadius: UiRadius.borderLarge),
       icon: danger
           ? Icon(Icons.warning_amber_outlined, color: context.colorScheme.error)
           : null,
       title: Text(title),
       content: Text(message, style: context.textTheme.bodyMedium),
-      actionsPadding: const EdgeInsets.all(UiSpacing.md),
+      actionsPadding: const EdgeInsets.all(UiSpacing.medium),
       actions: <Widget>[
-        UiButton(label: cancelLabel, variant: .ghost, onPressed: onCancel),
+        UiButton(
+          label: cancelLabel,
+          variant: UiButtonVariant.ghost,
+          onPressed: onCancel,
+        ),
         UiButton(
           label: confirmLabel,
-          variant: danger ? .danger : .primary,
+          variant: danger ? UiButtonVariant.danger : UiButtonVariant.primary,
           onPressed: onConfirm,
         ),
       ],

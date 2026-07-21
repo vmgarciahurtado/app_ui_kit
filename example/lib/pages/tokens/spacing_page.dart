@@ -11,18 +11,18 @@ class SpacingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<(String, double)> spacings = <(String, double)>[
-      ('xxs', UiSpacing.xxs),
-      ('xs', UiSpacing.xs),
-      ('sm', UiSpacing.sm),
-      ('md', UiSpacing.md),
-      ('lg', UiSpacing.lg),
-      ('xl', UiSpacing.xl),
-      ('xxl', UiSpacing.xxl),
+      ('extraExtraSmall', UiSpacing.extraExtraSmall),
+      ('extraSmall', UiSpacing.extraSmall),
+      ('small', UiSpacing.small),
+      ('medium', UiSpacing.medium),
+      ('large', UiSpacing.large),
+      ('extraLarge', UiSpacing.extraLarge),
+      ('extraExtraLarge', UiSpacing.extraExtraLarge),
     ];
     const List<(String, double)> radii = <(String, double)>[
-      ('sm', UiRadius.sm),
-      ('md', UiRadius.md),
-      ('lg', UiRadius.lg),
+      ('small', UiRadius.small),
+      ('medium', UiRadius.medium),
+      ('large', UiRadius.large),
       ('full', UiRadius.full),
     ];
     const List<(String, double)> breakpoints = <(String, double)>[
@@ -51,10 +51,10 @@ class SpacingPage extends StatelessWidget {
                     ),
                     Container(
                       width: value * 4,
-                      height: UiSpacing.md,
+                      height: UiSpacing.medium,
                       decoration: BoxDecoration(
                         color: context.colorScheme.primary,
-                        borderRadius: UiRadius.borderSm,
+                        borderRadius: UiRadius.borderSmall,
                       ),
                     ),
                   ],
@@ -76,7 +76,7 @@ class SpacingPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(value),
                     ),
                   ),
-                  const SizedBox(height: UiSpacing.xs),
+                  const SizedBox(height: UiSpacing.extraSmall),
                   Text(name, style: context.textTheme.labelSmall),
                 ],
               ),

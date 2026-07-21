@@ -68,11 +68,11 @@ abstract final class UiKitTheme {
     }
 
     const RoundedRectangleBorder buttonShape = RoundedRectangleBorder(
-      borderRadius: UiRadius.borderMd,
+      borderRadius: UiRadius.borderMedium,
     );
     const EdgeInsets buttonPadding = EdgeInsets.symmetric(
-      horizontal: UiSpacing.lg,
-      vertical: UiSpacing.md,
+      horizontal: UiSpacing.large,
+      vertical: UiSpacing.medium,
     );
 
     final ThemeData theme = ThemeData(
@@ -107,32 +107,32 @@ abstract final class UiKitTheme {
         filled: true,
         fillColor: colorScheme.surfaceContainerLow,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: UiSpacing.md,
-          vertical: UiSpacing.md,
+          horizontal: UiSpacing.medium,
+          vertical: UiSpacing.medium,
         ),
         border: OutlineInputBorder(
-          borderRadius: UiRadius.borderMd,
+          borderRadius: UiRadius.borderMedium,
           borderSide: BorderSide(color: colorScheme.outline),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: UiRadius.borderMd,
+          borderRadius: UiRadius.borderMedium,
           borderSide: BorderSide(color: colorScheme.outlineVariant),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: UiRadius.borderMd,
+          borderRadius: UiRadius.borderMedium,
           borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: UiRadius.borderMd,
+          borderRadius: UiRadius.borderMedium,
           borderSide: BorderSide(color: colorScheme.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: UiRadius.borderMd,
+          borderRadius: UiRadius.borderMedium,
           borderSide: BorderSide(color: colorScheme.error, width: 2),
         ),
       ),
       cardTheme: CardThemeData(
-        shape: const RoundedRectangleBorder(borderRadius: UiRadius.borderLg),
+        shape: const RoundedRectangleBorder(borderRadius: UiRadius.borderLarge),
         clipBehavior: Clip.antiAlias,
         elevation: 0,
         color: colorScheme.surfaceContainerLow,
@@ -141,8 +141,8 @@ abstract final class UiKitTheme {
       chipTheme: const ChipThemeData(
         shape: RoundedRectangleBorder(borderRadius: UiRadius.borderFull),
         padding: EdgeInsets.symmetric(
-          horizontal: UiSpacing.sm,
-          vertical: UiSpacing.xs,
+          horizontal: UiSpacing.small,
+          vertical: UiSpacing.extraSmall,
         ),
       ),
       menuTheme: MenuThemeData(
@@ -155,22 +155,24 @@ abstract final class UiKitTheme {
           ),
           elevation: const WidgetStatePropertyAll<double>(6),
           shape: const WidgetStatePropertyAll<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: UiRadius.borderMd),
+            RoundedRectangleBorder(borderRadius: UiRadius.borderMedium),
           ),
           padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.symmetric(
-              vertical: UiSpacing.sm,
-              horizontal: UiSpacing.xs,
+              vertical: UiSpacing.small,
+              horizontal: UiSpacing.extraSmall,
             ),
           ),
         ),
       ),
       menuButtonTheme: MenuButtonThemeData(
         style: MenuItemButton.styleFrom(
-          shape: const RoundedRectangleBorder(borderRadius: UiRadius.borderSm),
+          shape: const RoundedRectangleBorder(
+            borderRadius: UiRadius.borderSmall,
+          ),
           padding: const EdgeInsets.symmetric(
-            horizontal: UiSpacing.md,
-            vertical: UiSpacing.sm,
+            horizontal: UiSpacing.medium,
+            vertical: UiSpacing.small,
           ),
         ),
       ),
@@ -178,23 +180,29 @@ abstract final class UiKitTheme {
 
     if (headingFontFamily == null) return theme;
     return theme.copyWith(
-      textTheme: _withHeadingFont(theme.textTheme, headingFontFamily),
+      textTheme: _withHeadingFont(
+        base: theme.textTheme,
+        fontFamily: headingFontFamily,
+      ),
     );
   }
 
   /// Aplica la fuente de titulares a los estilos display, headline y
   /// titleLarge, dejando el resto con la fuente base.
-  static TextTheme _withHeadingFont(TextTheme base, String fontFamily) {
-    TextStyle? heading(TextStyle? style) =>
+  static TextTheme _withHeadingFont({
+    required TextTheme base,
+    required String fontFamily,
+  }) {
+    TextStyle? heading({TextStyle? style}) =>
         style?.copyWith(fontFamily: fontFamily);
     return base.copyWith(
-      displayLarge: heading(base.displayLarge),
-      displayMedium: heading(base.displayMedium),
-      displaySmall: heading(base.displaySmall),
-      headlineLarge: heading(base.headlineLarge),
-      headlineMedium: heading(base.headlineMedium),
-      headlineSmall: heading(base.headlineSmall),
-      titleLarge: heading(base.titleLarge),
+      displayLarge: heading(style: base.displayLarge),
+      displayMedium: heading(style: base.displayMedium),
+      displaySmall: heading(style: base.displaySmall),
+      headlineLarge: heading(style: base.headlineLarge),
+      headlineMedium: heading(style: base.headlineMedium),
+      headlineSmall: heading(style: base.headlineSmall),
+      titleLarge: heading(style: base.titleLarge),
     );
   }
 }

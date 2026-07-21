@@ -12,10 +12,10 @@ class PlaceholderBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      alignment: .center,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: context.colorScheme.surfaceContainerHighest,
-        borderRadius: UiRadius.borderLg,
+        borderRadius: UiRadius.borderLarge,
         border: Border.all(color: context.colorScheme.outlineVariant),
       ),
       child: Text(

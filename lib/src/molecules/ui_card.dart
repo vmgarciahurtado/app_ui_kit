@@ -18,7 +18,7 @@ class UiCard extends StatelessWidget {
     required this.child,
     super.key,
     this.onTap,
-    this.padding = const EdgeInsets.all(UiSpacing.md),
+    this.padding = const EdgeInsets.all(UiSpacing.medium),
   });
 
   final Widget child;

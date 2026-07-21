@@ -30,10 +30,26 @@ class _ButtonsPageState extends State<ButtonsPage> {
           description: 'Cinco niveles de énfasis con una sola API.',
           children: <Widget>[
             UiButton(label: 'Primary', onPressed: () {}),
-            UiButton(label: 'Secondary', variant: .secondary, onPressed: () {}),
-            UiButton(label: 'Outline', variant: .outline, onPressed: () {}),
-            UiButton(label: 'Ghost', variant: .ghost, onPressed: () {}),
-            UiButton(label: 'Danger', variant: .danger, onPressed: () {}),
+            UiButton(
+              label: 'Secondary',
+              variant: UiButtonVariant.secondary,
+              onPressed: () {},
+            ),
+            UiButton(
+              label: 'Outline',
+              variant: UiButtonVariant.outline,
+              onPressed: () {},
+            ),
+            UiButton(
+              label: 'Ghost',
+              variant: UiButtonVariant.ghost,
+              onPressed: () {},
+            ),
+            UiButton(
+              label: 'Danger',
+              variant: UiButtonVariant.danger,
+              onPressed: () {},
+            ),
           ],
         ),
         ShowcaseSection(
@@ -43,13 +59,13 @@ class _ButtonsPageState extends State<ButtonsPage> {
             UiButton(
               label: 'Compartir',
               icon: Icons.share_outlined,
-              variant: .outline,
+              variant: UiButtonVariant.outline,
               onPressed: () {},
             ),
             UiButton(
               label: 'Eliminar',
               icon: Icons.delete_outline,
-              variant: .danger,
+              variant: UiButtonVariant.danger,
               onPressed: () {},
             ),
           ],
@@ -64,7 +80,10 @@ class _ButtonsPageState extends State<ButtonsPage> {
               onPressed: _simulateLoad,
             ),
             const UiButton(label: 'Deshabilitado'),
-            const UiButton(label: 'Deshabilitado', variant: .outline),
+            const UiButton(
+              label: 'Deshabilitado',
+              variant: UiButtonVariant.outline,
+            ),
           ],
         ),
         ShowcaseSection(

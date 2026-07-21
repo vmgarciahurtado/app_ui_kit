@@ -17,7 +17,7 @@ class _DialogsPageState extends State<DialogsPage> {
 
   Future<void> _openConfirm() async {
     final bool? confirmed = await UiConfirmDialog.show(
-      context,
+      context: context,
       title: '¿Publicar cambios?',
       message: 'Los cambios serán visibles para todos los usuarios.',
       confirmLabel: 'Publicar',
@@ -27,7 +27,7 @@ class _DialogsPageState extends State<DialogsPage> {
 
   Future<void> _openDanger() async {
     final bool? confirmed = await UiConfirmDialog.show(
-      context,
+      context: context,
       title: '¿Eliminar cuenta?',
       message: 'Esta acción es permanente y no se puede deshacer.',
       confirmLabel: 'Eliminar',
@@ -49,7 +49,7 @@ class _DialogsPageState extends State<DialogsPage> {
             UiButton(label: 'Confirmación normal', onPressed: _openConfirm),
             UiButton(
               label: 'Confirmación destructiva',
-              variant: .danger,
+              variant: UiButtonVariant.danger,
               onPressed: _openDanger,
             ),
           ],

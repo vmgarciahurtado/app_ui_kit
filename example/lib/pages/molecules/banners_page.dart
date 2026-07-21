@@ -27,15 +27,15 @@ class _BannersPageState extends State<BannersPage> {
           children: <Widget>[
             UiBanner(message: 'Hay una nueva versión disponible.'),
             UiBanner(
-              variant: .success,
+              status: UiStatus.success,
               message: 'Tu perfil se actualizó correctamente.',
             ),
             UiBanner(
-              variant: .warning,
+              status: UiStatus.warning,
               message: 'Tu sesión expira en 5 minutos.',
             ),
             UiBanner(
-              variant: .error,
+              status: UiStatus.error,
               message: 'No pudimos procesar el pago.',
             ),
           ],
@@ -56,7 +56,7 @@ class _BannersPageState extends State<BannersPage> {
           children: <Widget>[
             if (_visible)
               UiBanner(
-                variant: .success,
+                status: UiStatus.success,
                 title: 'Cambios guardados',
                 message: 'Puedes cerrar este mensaje.',
                 onClose: () => setState(() => _visible = false),
@@ -64,7 +64,7 @@ class _BannersPageState extends State<BannersPage> {
             else
               UiButton(
                 label: 'Mostrar de nuevo',
-                variant: .ghost,
+                variant: UiButtonVariant.ghost,
                 onPressed: () => setState(() => _visible = true),
               ),
           ],

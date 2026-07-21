@@ -15,8 +15,9 @@ Recorrido por los componentes y el showcase:
 
 ```
 lib/src/
-├── tokens/        # Valores crudos: UiSpacing, UiRadius, UiIconSize, UiBreakpoints
-├── theme/         # Foundation: UiKitTheme, UiStatusColors, extensión de BuildContext
+├── foundations/   # Escala cruda (UiSizes) + vocabulario del sistema (UiSize, UiStatus)
+├── tokens/        # Decisiones con nombre y misión: UiSpacing, UiRadius, UiIconSize, UiBreakpoints
+├── theme/         # UiKitTheme, UiStatusColors, extensión de BuildContext
 ├── atoms/         # UiButton, UiTextField, UiChip, UiLoader, UiAvatar
 ├── molecules/     # UiCard, UiBanner, UiEmptyState, UiConfirmDialog, UiListTile
 ├── organisms/     # UiListSection, UiProfileHeader
@@ -29,11 +30,24 @@ El showcase incluye dos de ejemplo (`Página de equipo` y `Página de perfil`).
 
 Reglas del sistema:
 
-- Los **tokens** son constantes sin semántica de componente (no existe `buttonColor`).
-- El **theme** mapea tokens + marca del consumidor a un `ThemeData`. Es la única
-  fuente de colores y tipografía.
-- Los **componentes** leen todo del theme vía `context.colorScheme`,
-  `context.textTheme` y `context.statusColors`. Nunca colores hardcodeados.
+La base es un pipeline de tres capas
+(`foundations → tokens → theme → componentes`):
+
+- Las **foundations** son la base sin misión concreta: la escala cruda de
+  valores (`UiSizes`) y el vocabulario del sistema, que nombra sin decidir
+  valores (`UiSize` para tamaños, `UiStatus` para estados). La escala solo
+  la consumen los tokens y las traducciones internas de los componentes.
+- Los **tokens** dan vida y misión a los valores crudos (`UiSpacing.medium`,
+  `UiRadius.small`), sin semántica de componente (no existe, por ejemplo `buttonColor`).
+- Los **componentes** traducen internamente el vocabulario a su propia
+  proporción: el `UiSize.small` de un avatar no mide lo mismo que el de un
+  loader, y esa decisión vive en el componente, no en la base.
+- El **theme** mapea tokens + marca del consumidor a un `ThemeData`, la
+  única fuente de colores y tipografía. Como la marca se inyecta en
+  runtime, la correlación semántica de color no son alias estáticos sino
+  los roles de `ColorScheme` + `UiStatusColors`.
+- Los **componentes** nunca usan colores hardcodeados: todo llega del theme
+  vía `context.colorScheme`, `context.textTheme` y `context.statusColors`.
 
 ## Instalación
 
@@ -95,10 +109,10 @@ context.statusColors.success
 | `UiButton` | Átomo | `primary`, `secondary`, `outline`, `ghost`, `danger` · ícono, loading, expanded |
 | `UiTextField` | Átomo | label, hint, helper, error, prefijo, contraseña con toggle, multilínea |
 | `UiChip` | Átomo | estático, seleccionable, eliminable, con ícono |
-| `UiLoader` | Átomo | tamaños `sm`/`md`/`lg`, etiqueta opcional |
-| `UiAvatar` | Átomo | imagen o iniciales, tamaños `sm`/`md`/`lg` |
+| `UiLoader` | Átomo | tamaños con `UiSize` (`small`/`medium`/`large`), etiqueta opcional |
+| `UiAvatar` | Átomo | imagen o iniciales, tamaños con `UiSize` (`small`/`medium`/`large`) |
 | `UiCard` | Molécula | padding consistente, `onTap` con ripple |
-| `UiBanner` | Molécula | `info`, `success`, `warning`, `error` · título y cierre opcionales |
+| `UiBanner` | Molécula | `UiStatus` (`info`, `success`, `warning`, `error`) · título y cierre opcionales |
 | `UiEmptyState` | Molécula | ícono, título, mensaje y acción opcionales |
 | `UiConfirmDialog` | Molécula | widget puro con `onConfirm`/`onCancel`; `show()` resuelve `true`/`false`/`null` |
 | `UiListTile` | Molécula | avatar, título, subtítulo, tag como chip, `onTap` |
@@ -118,7 +132,7 @@ UiButton(
 );
 
 final confirmed = await UiConfirmDialog.show(
-  context,
+  context: context,
   title: '¿Eliminar elemento?',
   message: 'Esta acción no se puede deshacer.',
   confirmLabel: 'Eliminar',

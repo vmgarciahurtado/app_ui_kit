@@ -56,7 +56,7 @@ class _ChipsPageState extends State<ChipsPage> {
             if (_tags.isEmpty)
               UiButton(
                 label: 'Restaurar',
-                variant: .ghost,
+                variant: UiButtonVariant.ghost,
                 onPressed: () => setState(
                   () => _tags.addAll(<String>['Diseño', 'Mobile', 'Web']),
                 ),

@@ -27,7 +27,7 @@ class ProfileHeadersPage extends StatelessWidget {
                 UiButton(label: 'Seguir', onPressed: () {}),
                 UiButton(
                   label: 'Mensaje',
-                  variant: .outline,
+                  variant: UiButtonVariant.outline,
                   onPressed: () {},
                 ),
               ],

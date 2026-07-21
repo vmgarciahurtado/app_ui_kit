@@ -32,27 +32,29 @@ class UiEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? message = this.message;
+    final Widget? action = this.action;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(UiSpacing.xl),
+        padding: const EdgeInsets.all(UiSpacing.extraLarge),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Icon(
               icon,
-              size: UiIconSize.xl,
+              size: UiIconSize.extraLarge,
               color: context.colorScheme.onSurfaceVariant,
             ),
-            const SizedBox(height: UiSpacing.md),
+            const SizedBox(height: UiSpacing.medium),
             Text(
               title,
               style: context.textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
             if (message != null) ...<Widget>[
-              const SizedBox(height: UiSpacing.sm),
+              const SizedBox(height: UiSpacing.small),
               Text(
-                message!,
+                message,
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: context.colorScheme.onSurfaceVariant,
                 ),
@@ -60,8 +62,8 @@ class UiEmptyState extends StatelessWidget {
               ),
             ],
             if (action != null) ...<Widget>[
-              const SizedBox(height: UiSpacing.lg),
-              action!,
+              const SizedBox(height: UiSpacing.large),
+              action,
             ],
           ],
         ),

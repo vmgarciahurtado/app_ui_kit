@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../foundations/ui_size.dart';
+import '../foundations/ui_sizes.dart';
 import '../theme/build_context_theme.dart';
-
-/// Tamaños disponibles para [UiAvatar].
-enum UiAvatarSize {
-  sm(32),
-  md(44),
-  lg(64);
-
-  const UiAvatarSize(this.dimension);
-
-  final double dimension;
-}
 
 /// Avatar del sistema de diseño.
 ///
@@ -19,7 +10,7 @@ enum UiAvatarSize {
 /// de [name] sobre el color primario del tema.
 ///
 /// ```dart
-/// UiAvatar(name: 'Victor García', size: .lg);
+/// UiAvatar(name: 'Victor García', size: UiSize.large);
 /// UiAvatar(name: 'Victor', image: NetworkImage(photoUrl));
 /// ```
 class UiAvatar extends StatelessWidget {
@@ -27,13 +18,24 @@ class UiAvatar extends StatelessWidget {
     required this.name,
     super.key,
     this.image,
-    this.size = .md,
+    this.size = UiSize.medium,
   });
 
   /// Nombre usado para las iniciales (y como semántica del avatar).
   final String name;
   final ImageProvider? image;
-  final UiAvatarSize size;
+  final UiSize size;
+
+  /// Proporción de las iniciales respecto al diámetro del avatar.
+  static const double _initialsFontScale = 0.36;
+
+  /// Traduce el vocabulario [UiSize] a la dimensión del avatar,
+  /// tomando los valores de la escala cruda [UiSizes].
+  double get _dimension => switch (size) {
+    UiSize.small => UiSizes.size32,
+    UiSize.medium => UiSizes.size44,
+    UiSize.large => UiSizes.size64,
+  };
 
   /// Iniciales de las dos primeras palabras del nombre.
   String get _initials {
@@ -48,7 +50,7 @@ class UiAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: size.dimension / 2,
+      radius: _dimension / 2,
       foregroundImage: image,
       backgroundColor: context.colorScheme.primaryContainer,
       child: Text(
@@ -56,7 +58,7 @@ class UiAvatar extends StatelessWidget {
         style: context.textTheme.titleMedium?.copyWith(
           color: context.colorScheme.onPrimaryContainer,
           fontWeight: FontWeight.w600,
-          fontSize: size.dimension * 0.36,
+          fontSize: _dimension * _initialsFontScale,
         ),
       ),
     );
