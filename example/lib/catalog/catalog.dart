@@ -7,9 +7,12 @@ import '../pages/atoms/loaders_page.dart';
 import '../pages/atoms/text_fields_page.dart';
 import '../pages/molecules/banners_page.dart';
 import '../pages/molecules/cards_page.dart';
+import '../pages/molecules/check_options_page.dart';
 import '../pages/molecules/dialogs_page.dart';
 import '../pages/molecules/empty_states_page.dart';
 import '../pages/molecules/list_tiles_page.dart';
+import '../pages/molecules/otp_fields_page.dart';
+import '../pages/molecules/success_views_page.dart';
 import '../pages/organisms/list_sections_page.dart';
 import '../pages/organisms/profile_headers_page.dart';
 import '../pages/pages/profile_page.dart';
@@ -67,6 +70,18 @@ final List<ComponentCategory> catalog = <ComponentCategory>[
       ComponentEntry(
         title: 'Filas de lista',
         builder: (_) => const ListTilesPage(),
+      ),
+      ComponentEntry(
+        title: 'Opción de aceptación',
+        builder: (_) => const CheckOptionsPage(),
+      ),
+      ComponentEntry(
+        title: 'Código OTP',
+        builder: (_) => const OtpFieldsPage(),
+      ),
+      ComponentEntry(
+        title: 'Vista de éxito',
+        builder: (_) => const SuccessViewsPage(),
       ),
     ],
   ),

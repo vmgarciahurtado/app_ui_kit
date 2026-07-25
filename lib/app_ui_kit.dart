@@ -16,9 +16,12 @@ export 'src/foundations/ui_status.dart';
 // Moléculas
 export 'src/molecules/ui_banner.dart';
 export 'src/molecules/ui_card.dart';
+export 'src/molecules/ui_check_option.dart';
 export 'src/molecules/ui_confirm_dialog.dart';
 export 'src/molecules/ui_empty_state.dart';
 export 'src/molecules/ui_list_tile.dart';
+export 'src/molecules/ui_otp_field.dart';
+export 'src/molecules/ui_success_view.dart';
 // Organismos
 export 'src/organisms/ui_list_section.dart';
 export 'src/organisms/ui_profile_header.dart';

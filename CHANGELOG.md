@@ -1,3 +1,32 @@
+## 0.2.0
+
+Nuevas moléculas para flujos de autenticación y confirmación, y el
+indicador de carga ahora usa una animación Lottie empaquetada. Sin cambios
+que rompan la API pública respecto a la 0.1.0.
+
+### Agregado
+
+* **Moléculas**:
+  * `UiOtpField`: campo de ingreso de código (OTP) con casillas
+    individuales, avance y retroceso de foco automático y callbacks
+    `onChanged`/`onCompleted` (este último se dispara una sola vez por
+    código completo).
+  * `UiCheckOption`: opción de aceptación con círculo seleccionable y texto
+    que puede incluir un enlace (ej. términos y condiciones); toda la fila
+    es área táctil.
+  * `UiSuccessView`: vista de confirmación centrada con ícono, título,
+    mensaje y acción principal.
+* **Showcase**: páginas de ejemplo para las tres moléculas nuevas
+  (`Opción de aceptación`, `Código OTP`, `Vista de éxito`).
+* **Dependencia**: `lottie` para animaciones empaquetadas en el paquete.
+
+### Cambiado
+
+* `UiLoader` ahora renderiza una animación Lottie empaquetada en el propio
+  paquete (`assets/animations/loading.json`) en lugar de un
+  `CircularProgressIndicator`. La API pública (`size: UiSize`, `label`) no
+  cambia y las apps consumidoras no necesitan declarar ningún asset.
+
 ## 0.1.0
 
 Reorganización de la base en un pipeline de capas y unificación del

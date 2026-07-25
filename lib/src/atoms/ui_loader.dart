@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../foundations/ui_size.dart';
 import '../foundations/ui_sizes.dart';
@@ -6,6 +7,9 @@ import '../theme/build_context_theme.dart';
 import '../tokens/ui_spacing.dart';
 
 /// Indicador de carga del sistema de diseño.
+///
+/// Renderiza una animación Lottie empaquetada dentro del propio `app_ui_kit`,
+/// por lo que las apps consumidoras no necesitan declarar ningún asset.
 ///
 /// ```dart
 /// UiLoader(size: UiSize.large, label: 'Cargando…');
@@ -26,18 +30,15 @@ class UiLoader extends StatelessWidget {
     UiSize.large => UiSizes.size44,
   };
 
-  /// Grosor del trazo proporcional a cada tamaño.
-  double get _strokeWidth => switch (size) {
-    UiSize.small => UiSizes.size2,
-    UiSize.medium => UiSizes.size3,
-    UiSize.large => UiSizes.size4,
-  };
-
   @override
   Widget build(BuildContext context) {
-    final SizedBox indicator = SizedBox.square(
+    final Widget indicator = SizedBox.square(
       dimension: _dimension,
-      child: CircularProgressIndicator(strokeWidth: _strokeWidth),
+      child: Lottie.asset(
+        'assets/animations/loading.json',
+        package: 'app_ui_kit',
+        fit: BoxFit.contain,
+      ),
     );
 
     final String? label = this.label;
