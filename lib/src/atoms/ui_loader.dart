@@ -15,29 +15,50 @@ import '../tokens/ui_spacing.dart';
 /// UiLoader(size: UiSize.large, label: 'Cargando…');
 /// ```
 class UiLoader extends StatelessWidget {
-  const UiLoader({super.key, this.size = UiSize.medium, this.label});
+  const UiLoader({
+    super.key,
+    this.size = UiSize.medium,
+    this.label,
+    this.color,
+  });
 
   final UiSize size;
 
   /// Texto opcional debajo del indicador.
   final String? label;
 
-  /// Traduce el vocabulario [UiSize] al diámetro del indicador,
-  /// tomando los valores de la escala cruda [UiSizes].
-  double get _dimension => switch (size) {
-    UiSize.small => UiSizes.size16,
-    UiSize.medium => UiSizes.size28,
-    UiSize.large => UiSizes.size44,
+  /// Color de los puntos. Si es null hereda el del `IconTheme`, que es lo que
+  /// hace que dentro de un botón tomen el color de su texto.
+  final Color? color;
+
+  /// Traduce el vocabulario [UiSize] al **ancho** del indicador, tomando los
+  /// valores de la escala cruda [UiSizes].
+  double get _width => switch (size) {
+    UiSize.small => UiSizes.size48,
+    UiSize.medium => UiSizes.size80,
+    UiSize.large => UiSizes.size200,
   };
 
   @override
   Widget build(BuildContext context) {
-    final Widget indicator = SizedBox.square(
-      dimension: _dimension,
-      child: Lottie.asset(
-        'assets/animations/loading.json',
-        package: 'app_ui_kit',
-        fit: BoxFit.contain,
+    // Se dimensiona por ancho y el alto lo define la relación de aspecto de la
+    // animación: los dots están en fila, así que una caja cuadrada los dejaría
+    // diminutos entre franjas vacías.
+    final Widget indicator = Lottie.asset(
+      'assets/animations/loading.json',
+      package: 'app_ui_kit',
+      width: _width,
+      fit: BoxFit.contain,
+      delegates: LottieDelegates(
+        values: <ValueDelegate<dynamic>>[
+          ValueDelegate.color(
+            const <String>['**'],
+            value:
+                color ??
+                IconTheme.of(context).color ??
+                context.colorScheme.onSurface,
+          ),
+        ],
       ),
     );
 

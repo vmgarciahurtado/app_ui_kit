@@ -19,6 +19,8 @@ abstract final class UiSizes {
   static const double size48 = 48;
   static const double size56 = 56;
   static const double size64 = 64;
+  static const double size80 = 80;
+  static const double size200 = 200;
   static const double size600 = 600;
   static const double size900 = 900;
   static const double size1200 = 1200;
