@@ -28,7 +28,8 @@ class UiLoader extends StatelessWidget {
   final String? label;
 
   /// Color de los puntos. Si es null hereda el del `IconTheme`, que es lo que
-  /// hace que dentro de un botón tomen el color de su texto.
+  /// hace que dentro de un botón tomen el color de su texto. `IconTheme.of`
+  /// siempre resuelve a un color, así que no hace falta otro respaldo.
   final Color? color;
 
   /// Traduce el vocabulario [UiSize] al **ancho** del indicador, tomando los
@@ -53,10 +54,7 @@ class UiLoader extends StatelessWidget {
         values: <ValueDelegate<dynamic>>[
           ValueDelegate.color(
             const <String>['**'],
-            value:
-                color ??
-                IconTheme.of(context).color ??
-                context.colorScheme.onSurface,
+            value: color ?? IconTheme.of(context).color,
           ),
         ],
       ),

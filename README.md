@@ -167,7 +167,23 @@ docker run -p 8080:80 app_ui_kit_showcase
 
 ## Tests
 
+**22 archivos, 148 pruebas, 100 % de cobertura de líneas.**
+
 ```bash
-flutter test            # paquete
-cd example && flutter test   # showcase
+flutter test
 ```
+
+```bash
+./test/scripts/coverage.sh          # falla si baja de 95 %
+./test/scripts/coverage.sh --html   # abre el reporte navegable
+```
+
+```bash
+cd example && flutter test          # showcase
+```
+
+La cobertura requiere `lcov`: `brew install lcov` (macOS) o `apt install lcov`.
+
+`test/` refleja `lib/src/` archivo por archivo. Lo compartido está en
+`test/helpers/pump_kit.dart` (`pumpKit` para componentes sueltos, `pumpKitHome`
+para plantillas), que monta todo dentro de `UiKitTheme`.
