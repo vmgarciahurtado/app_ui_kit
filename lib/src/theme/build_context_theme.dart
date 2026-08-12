@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'ui_status_colors.dart';
+import '../tokens/ui_status_colors.dart';
 
 /// Acceso directo y limpio al diseño (Theme y colores de estado) desde el
 /// [BuildContext].

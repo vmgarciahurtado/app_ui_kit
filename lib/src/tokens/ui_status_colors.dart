@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../foundations/ui_colors.dart';
+
 /// Colores de estado que Material [ColorScheme] no cubre nativamente
-/// (solo trae `error`). Los usan componentes como banners y chips.
-///
-/// Se registra como [ThemeExtension] en `UiKitTheme`, por lo que el
-/// consumidor puede sobreescribir los defaults al construir su tema y
-/// leerlos en cualquier parte con `context.statusColors`.
+/// (solo trae `error`). Se leen con `context.statusColors`.
 @immutable
 class UiStatusColors extends ThemeExtension<UiStatusColors> {
   const UiStatusColors({
@@ -20,16 +18,16 @@ class UiStatusColors extends ThemeExtension<UiStatusColors> {
 
   /// Valores por defecto para tema claro.
   static const UiStatusColors light = UiStatusColors(
-    success: Color(0xFF16A34A),
-    warning: Color(0xFFD97706),
-    info: Color(0xFF2563EB),
+    success: UiColors.greenDeep,
+    warning: UiColors.orangeDeep,
+    info: UiColors.blueDeep,
   );
 
   /// Valores por defecto para tema oscuro.
   static const UiStatusColors dark = UiStatusColors(
-    success: Color(0xFF4ADE80),
-    warning: Color(0xFFFBBF24),
-    info: Color(0xFF60A5FA),
+    success: UiColors.green,
+    warning: UiColors.orange,
+    info: UiColors.magenta,
   );
 
   @override

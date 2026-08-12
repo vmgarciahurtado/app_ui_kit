@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Widget _wrap(Widget child) {
   return MaterialApp(
-    theme: UiKitTheme.light(primary: Colors.indigo),
+    theme: UiKitTheme.light(),
     home: Scaffold(body: Center(child: child)),
   );
 }
@@ -12,21 +12,40 @@ Widget _wrap(Widget child) {
 void main() {
   group('UiKitTheme', () {
     test('registra UiStatusColors como extension del tema', () {
-      final ThemeData theme = UiKitTheme.light(primary: Colors.indigo);
+      final ThemeData theme = UiKitTheme.light();
       expect(theme.extension<UiStatusColors>(), UiStatusColors.light);
     });
 
-    test('respeta el color secundario del consumidor', () {
+    test('usa la paleta por defecto del sistema', () {
+      final ThemeData theme = UiKitTheme.dark();
+      expect(theme.colorScheme.primary, UiPalette.dark.primary);
+      expect(theme.colorScheme.secondary, UiPalette.dark.secondary);
+      expect(theme.scaffoldBackgroundColor, UiPalette.dark.background);
+      expect(theme.colorScheme.error, UiPalette.dark.danger);
+    });
+
+    test('respeta la paleta que sobreescribe el consumidor', () {
       final ThemeData theme = UiKitTheme.dark(
-        primary: Colors.indigo,
-        secondary: Colors.teal,
+        palette: UiPalette.dark.copyWith(
+          primary: Colors.indigo,
+          secondary: Colors.teal,
+        ),
       );
+      expect(theme.colorScheme.primary, Colors.indigo);
       expect(theme.colorScheme.secondary, Colors.teal);
+      // Lo que no se sobreescribe sigue viniendo del sistema.
+      expect(theme.scaffoldBackgroundColor, UiPalette.dark.background);
+    });
+
+    test('respeta los colores de estado que sobreescribe el consumidor', () {
+      final ThemeData theme = UiKitTheme.dark(
+        statusColors: UiStatusColors.dark.copyWith(success: Colors.lime),
+      );
+      expect(theme.extension<UiStatusColors>()?.success, Colors.lime);
     });
 
     test('aplica la fuente de titulares solo a los estilos de titular', () {
       final ThemeData theme = UiKitTheme.light(
-        primary: Colors.indigo,
         fontFamily: 'Inter',
         headingFontFamily: 'Sora',
       );
@@ -286,7 +305,7 @@ void main() {
     ) async {
       await tester.pumpWidget(
         MaterialApp(
-          theme: UiKitTheme.light(primary: Colors.indigo),
+          theme: UiKitTheme.light(),
           home: const UiDetailPageTemplate(
             title: 'Perfil',
             header: Text('Encabezado'),
@@ -310,7 +329,7 @@ void main() {
     ) async {
       await tester.pumpWidget(
         MaterialApp(
-          theme: UiKitTheme.light(primary: Colors.indigo),
+          theme: UiKitTheme.light(),
           home: const UiPageTemplate(
             title: 'Mi equipo',
             sections: <Widget>[Text('Sección A'), Text('Sección B')],
@@ -343,6 +362,106 @@ void main() {
       expect(find.text('Sin resultados'), findsOneWidget);
       expect(find.text('Intenta con otra búsqueda.'), findsOneWidget);
       expect(find.byType(UiButton), findsOneWidget);
+    });
+  });
+
+  group('UiTag', () {
+    testWidgets('tiñe fondo y texto con el color recibido', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(const UiTag(label: 'Confirmada', color: Colors.green)),
+      );
+
+      final Text label = tester.widget<Text>(find.text('Confirmada'));
+      expect(label.style?.color, Colors.green);
+
+      final Container box = tester.widget<Container>(
+        find.ancestor(
+          of: find.text('Confirmada'),
+          matching: find.byType(Container),
+        ),
+      );
+      final BoxDecoration decoration = box.decoration! as BoxDecoration;
+      expect(decoration.color, Colors.green.withValues(alpha: 0.15));
+    });
+
+    testWidgets('sobre imagen usa texto claro para contrastar', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(const UiTag(label: 'Gratis', onImage: true)),
+      );
+
+      final Text label = tester.widget<Text>(find.text('Gratis'));
+      expect(label.style?.color, UiColors.white);
+    });
+  });
+
+  group('UiIconText', () {
+    testWidgets('muestra ícono y texto, y recorta si se limita', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiIconText(
+            icon: Icons.place,
+            text: 'Medellín',
+            maxLines: 1,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.place), findsOneWidget);
+      final Text label = tester.widget<Text>(find.text('Medellín'));
+      expect(label.maxLines, 1);
+      expect(label.overflow, TextOverflow.ellipsis);
+    });
+
+    testWidgets('escala el ícono según UiSize', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          const UiIconText(
+            icon: Icons.place,
+            text: 'Medellín',
+            size: UiSize.medium,
+          ),
+        ),
+      );
+
+      final Icon icon = tester.widget<Icon>(find.byIcon(Icons.place));
+      expect(icon.size, UiIconSize.medium);
+    });
+  });
+
+  group('UiText', () {
+    testWidgets('toma el estilo del rol y no de un TextStyle suelto', (
+      WidgetTester tester,
+    ) async {
+      late TextTheme theme;
+      await tester.pumpWidget(
+        _wrap(
+          Builder(
+            builder: (BuildContext context) {
+              theme = Theme.of(context).textTheme;
+              return const UiText('Título', style: UiTextStyle.subtitle);
+            },
+          ),
+        ),
+      );
+
+      final Text rendered = tester.widget<Text>(find.text('Título'));
+      expect(rendered.style?.fontSize, theme.titleMedium?.fontSize);
+    });
+
+    testWidgets('recorta con puntos suspensivos al limitar líneas', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(_wrap(const UiText('Largo', maxLines: 2)));
+
+      final Text rendered = tester.widget<Text>(find.text('Largo'));
+      expect(rendered.maxLines, 2);
+      expect(rendered.overflow, TextOverflow.ellipsis);
     });
   });
 }

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../../widgets/showcase_list.dart';
 import '../../widgets/showcase_section.dart';
 
-/// Paleta semántica del tema activo: ColorScheme + UiStatusColors.
+/// Paleta del sistema (UiPalette) y su traducción al tema activo
+/// (ColorScheme + UiStatusColors).
 class ColorsPage extends StatelessWidget {
   const ColorsPage({super.key});
 
@@ -12,13 +13,34 @@ class ColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme scheme = context.colorScheme;
     final UiStatusColors status = context.statusColors;
+    final UiPalette palette = scheme.brightness == Brightness.dark
+        ? UiPalette.dark
+        : UiPalette.light;
 
     return ShowcaseList(
       children: <Widget>[
         ShowcaseSection(
+          title: 'Paleta del sistema (UiPalette)',
+          description:
+              'Marca y superficies: nombra roles de interfaz, no colores. Es '
+              'lo que el tema traduce a ColorScheme. Los estados van aparte, '
+              'en UiStatusColors.',
+          children: <Widget>[
+            _Swatch('primary', palette.primary, palette.onPrimary),
+            _Swatch('secondary', palette.secondary, palette.onSecondary),
+            _Swatch('background', palette.background, palette.onSurface),
+            _Swatch('surface', palette.surface, palette.onSurface),
+            _Swatch('surfaceRaised', palette.surfaceRaised, palette.onSurface),
+            _Swatch('outline', palette.outline, palette.onSurface),
+            _Swatch('onSurfaceMuted', palette.onSurfaceMuted, palette.surface),
+            _Swatch('danger', palette.danger, palette.onDanger),
+          ],
+        ),
+        ShowcaseSection(
           title: 'Colores de marca',
           description:
-              'Derivados del primary/secondary que el consumidor pasa a UiKitTheme.',
+              'Los roles de ColorScheme: primary/secondary vienen de la '
+              'paleta; los contenedores y el terciario los deriva Material.',
           children: <Widget>[
             _Swatch('primary', scheme.primary, scheme.onPrimary),
             _Swatch(

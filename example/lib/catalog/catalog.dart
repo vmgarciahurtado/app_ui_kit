@@ -4,12 +4,15 @@ import '../pages/atoms/avatars_page.dart';
 import '../pages/atoms/buttons_page.dart';
 import '../pages/atoms/chips_page.dart';
 import '../pages/atoms/loaders_page.dart';
+import '../pages/atoms/tags_page.dart';
 import '../pages/atoms/text_fields_page.dart';
+import '../pages/atoms/texts_page.dart';
 import '../pages/molecules/banners_page.dart';
 import '../pages/molecules/cards_page.dart';
 import '../pages/molecules/check_options_page.dart';
 import '../pages/molecules/dialogs_page.dart';
 import '../pages/molecules/empty_states_page.dart';
+import '../pages/molecules/icon_texts_page.dart';
 import '../pages/molecules/list_tiles_page.dart';
 import '../pages/molecules/otp_fields_page.dart';
 import '../pages/molecules/success_views_page.dart';
@@ -46,12 +49,14 @@ final List<ComponentCategory> catalog = <ComponentCategory>[
     title: 'Átomos',
     icon: Icons.circle_outlined,
     entries: <ComponentEntry>[
+      ComponentEntry(title: 'Textos', builder: (_) => const TextsPage()),
       ComponentEntry(title: 'Botones', builder: (_) => const ButtonsPage()),
       ComponentEntry(
         title: 'Campos de texto',
         builder: (_) => const TextFieldsPage(),
       ),
       ComponentEntry(title: 'Chips', builder: (_) => const ChipsPage()),
+      ComponentEntry(title: 'Etiquetas', builder: (_) => const TagsPage()),
       ComponentEntry(title: 'Loaders', builder: (_) => const LoadersPage()),
       ComponentEntry(title: 'Avatares', builder: (_) => const AvatarsPage()),
     ],
@@ -70,6 +75,10 @@ final List<ComponentCategory> catalog = <ComponentCategory>[
       ComponentEntry(
         title: 'Filas de lista',
         builder: (_) => const ListTilesPage(),
+      ),
+      ComponentEntry(
+        title: 'Ícono con texto',
+        builder: (_) => const IconTextsPage(),
       ),
       ComponentEntry(
         title: 'Opción de aceptación',

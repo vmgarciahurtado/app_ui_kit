@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
 
+import '../tokens/ui_fonts.dart';
+import '../tokens/ui_palette.dart';
 import '../tokens/ui_radius.dart';
 import '../tokens/ui_spacing.dart';
-import 'ui_status_colors.dart';
+import '../tokens/ui_status_colors.dart';
 
-/// Construye el [ThemeData] del sistema de diseño.
-///
-/// El consumidor controla la identidad visual (colores de marca, fuentes y
-/// colores de estado); el sistema aporta la consistencia (radios, espaciados
-/// y estilos de componentes derivados de los tokens).
+/// Construye el [ThemeData] del sistema de diseño. Sin argumentos ya trae la
+/// paleta, las fuentes y los colores de estado del sistema.
 ///
 /// ```dart
 /// MaterialApp(
-///   theme: UiKitTheme.light(primary: Colors.indigo),
-///   darkTheme: UiKitTheme.dark(primary: Colors.indigo),
+///   theme: UiKitTheme.light(),
+///   darkTheme: UiKitTheme.dark(),
 /// );
 /// ```
 abstract final class UiKitTheme {
   static ThemeData light({
-    required Color primary,
-    Color? secondary,
-    String? fontFamily,
-    String? headingFontFamily,
+    UiPalette palette = UiPalette.light,
+    String fontFamily = UiFonts.body,
+    String headingFontFamily = UiFonts.heading,
     UiStatusColors statusColors = UiStatusColors.light,
   }) {
     return _build(
       brightness: Brightness.light,
-      primary: primary,
-      secondary: secondary,
+      palette: palette,
       fontFamily: fontFamily,
       headingFontFamily: headingFontFamily,
       statusColors: statusColors,
@@ -35,16 +32,14 @@ abstract final class UiKitTheme {
   }
 
   static ThemeData dark({
-    required Color primary,
-    Color? secondary,
-    String? fontFamily,
-    String? headingFontFamily,
+    UiPalette palette = UiPalette.dark,
+    String fontFamily = UiFonts.body,
+    String headingFontFamily = UiFonts.heading,
     UiStatusColors statusColors = UiStatusColors.dark,
   }) {
     return _build(
       brightness: Brightness.dark,
-      primary: primary,
-      secondary: secondary,
+      palette: palette,
       fontFamily: fontFamily,
       headingFontFamily: headingFontFamily,
       statusColors: statusColors,
@@ -53,19 +48,15 @@ abstract final class UiKitTheme {
 
   static ThemeData _build({
     required Brightness brightness,
-    required Color primary,
-    required Color? secondary,
-    required String? fontFamily,
-    required String? headingFontFamily,
+    required UiPalette palette,
+    required String fontFamily,
+    required String headingFontFamily,
     required UiStatusColors statusColors,
   }) {
-    ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: primary,
+    final ColorScheme colorScheme = _schemeFrom(
+      palette: palette,
       brightness: brightness,
     );
-    if (secondary != null) {
-      colorScheme = colorScheme.copyWith(secondary: secondary);
-    }
 
     const RoundedRectangleBorder buttonShape = RoundedRectangleBorder(
       borderRadius: UiRadius.borderMedium,
@@ -78,6 +69,9 @@ abstract final class UiKitTheme {
     final ThemeData theme = ThemeData(
       colorScheme: colorScheme,
       fontFamily: fontFamily,
+      scaffoldBackgroundColor: palette.background,
+      canvasColor: palette.background,
+      dividerColor: palette.outline,
       extensions: <ThemeExtension<dynamic>>[statusColors],
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -103,39 +97,49 @@ abstract final class UiKitTheme {
           padding: buttonPadding,
         ),
       ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: palette.background,
+        foregroundColor: palette.onSurface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: false,
+      ),
       inputDecorationTheme: InputDecorationThemeData(
         filled: true,
-        fillColor: colorScheme.surfaceContainerLow,
+        fillColor: palette.surface,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: UiSpacing.medium,
           vertical: UiSpacing.medium,
         ),
         border: OutlineInputBorder(
           borderRadius: UiRadius.borderMedium,
-          borderSide: BorderSide(color: colorScheme.outline),
+          borderSide: BorderSide(color: palette.outline),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: UiRadius.borderMedium,
-          borderSide: BorderSide(color: colorScheme.outlineVariant),
+          borderSide: BorderSide(color: palette.outline),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: UiRadius.borderMedium,
-          borderSide: BorderSide(color: colorScheme.primary, width: 2),
+          borderSide: BorderSide(color: palette.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: UiRadius.borderMedium,
-          borderSide: BorderSide(color: colorScheme.error),
+          borderSide: BorderSide(color: palette.danger),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: UiRadius.borderMedium,
-          borderSide: BorderSide(color: colorScheme.error, width: 2),
+          borderSide: BorderSide(color: palette.danger, width: 2),
         ),
       ),
       cardTheme: CardThemeData(
-        shape: const RoundedRectangleBorder(borderRadius: UiRadius.borderLarge),
+        shape: RoundedRectangleBorder(
+          borderRadius: UiRadius.borderLarge,
+          side: BorderSide(color: palette.outline),
+        ),
         clipBehavior: Clip.antiAlias,
         elevation: 0,
-        color: colorScheme.surfaceContainerLow,
+        color: palette.surface,
         margin: EdgeInsets.zero,
       ),
       chipTheme: const ChipThemeData(
@@ -145,11 +149,30 @@ abstract final class UiKitTheme {
           vertical: UiSpacing.extraSmall,
         ),
       ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: palette.surfaceRaised,
+        contentTextStyle: TextStyle(color: palette.onSurface),
+        behavior: SnackBarBehavior.floating,
+        shape: const RoundedRectangleBorder(
+          borderRadius: UiRadius.borderMedium,
+        ),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: palette.surface,
+        surfaceTintColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(UiRadius.large),
+          ),
+        ),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: palette.surface,
+        surfaceTintColor: Colors.transparent,
+      ),
       menuTheme: MenuThemeData(
         style: MenuStyle(
-          backgroundColor: WidgetStatePropertyAll<Color>(
-            colorScheme.surfaceContainer,
-          ),
+          backgroundColor: WidgetStatePropertyAll<Color>(palette.surfaceRaised),
           surfaceTintColor: const WidgetStatePropertyAll<Color>(
             Colors.transparent,
           ),
@@ -178,31 +201,78 @@ abstract final class UiKitTheme {
       ),
     );
 
-    if (headingFontFamily == null) return theme;
     return theme.copyWith(
-      textTheme: _withHeadingFont(
+      textTheme: _textTheme(
         base: theme.textTheme,
-        fontFamily: headingFontFamily,
+        headingFontFamily: headingFontFamily,
+        onSurface: palette.onSurface,
       ),
     );
   }
 
-  /// Aplica la fuente de titulares a los estilos display, headline y
-  /// titleLarge, dejando el resto con la fuente base.
-  static TextTheme _withHeadingFont({
-    required TextTheme base,
-    required String fontFamily,
+  /// Mapea la paleta a los roles de [ColorScheme].
+  ///
+  /// Deriva del acento los roles que la paleta no nombra (contenedores,
+  /// terciarios) e impone los que sí: Material 3 no deriva bien las
+  /// superficies a partir de un acento muy saturado.
+  static ColorScheme _schemeFrom({
+    required UiPalette palette,
+    required Brightness brightness,
   }) {
-    TextStyle? heading({TextStyle? style}) =>
-        style?.copyWith(fontFamily: fontFamily);
+    return ColorScheme.fromSeed(
+      seedColor: palette.primary,
+      brightness: brightness,
+    ).copyWith(
+      primary: palette.primary,
+      onPrimary: palette.onPrimary,
+      secondary: palette.secondary,
+      onSecondary: palette.onSecondary,
+      surface: palette.background,
+      onSurface: palette.onSurface,
+      surfaceContainerLowest: palette.background,
+      surfaceContainerLow: palette.surface,
+      surfaceContainer: palette.surface,
+      surfaceContainerHigh: palette.surfaceRaised,
+      surfaceContainerHighest: palette.surfaceRaised,
+      onSurfaceVariant: palette.onSurfaceMuted,
+      outline: palette.outline,
+      outlineVariant: palette.outline,
+      error: palette.danger,
+      onError: palette.onDanger,
+    );
+  }
+
+  /// Tipografía del sistema: titulares compactos en peso alto y etiquetas con
+  /// más peso y tracking. [headingFontFamily] solo alcanza a los titulares.
+  static TextTheme _textTheme({
+    required TextTheme base,
+    required String headingFontFamily,
+    required Color onSurface,
+  }) {
+    TextStyle? heading(TextStyle? style) => style?.copyWith(
+      fontFamily: headingFontFamily,
+      fontWeight: FontWeight.w900,
+      letterSpacing: -0.8,
+      height: 1.05,
+      color: onSurface,
+    );
     return base.copyWith(
-      displayLarge: heading(style: base.displayLarge),
-      displayMedium: heading(style: base.displayMedium),
-      displaySmall: heading(style: base.displaySmall),
-      headlineLarge: heading(style: base.headlineLarge),
-      headlineMedium: heading(style: base.headlineMedium),
-      headlineSmall: heading(style: base.headlineSmall),
-      titleLarge: heading(style: base.titleLarge),
+      displayLarge: heading(base.displayLarge),
+      displayMedium: heading(base.displayMedium),
+      displaySmall: heading(base.displaySmall),
+      headlineLarge: heading(base.headlineLarge),
+      headlineMedium: heading(base.headlineMedium),
+      headlineSmall: heading(base.headlineSmall),
+      titleLarge: heading(base.titleLarge),
+      titleMedium: base.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+      labelLarge: base.labelLarge?.copyWith(
+        fontWeight: FontWeight.w800,
+        letterSpacing: 0.4,
+      ),
+      labelSmall: base.labelSmall?.copyWith(
+        fontWeight: FontWeight.w800,
+        letterSpacing: 0.8,
+      ),
     );
   }
 }
